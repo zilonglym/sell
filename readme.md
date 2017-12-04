@@ -17,7 +17,7 @@ windows:fiddler
 mac:Charles
 用手机代理将手机请求到本地电脑上，用来调试手机微信访问。
 
-6）微信支付第三方SDK
+- 6）微信支付第三方SDK
 https://github.com/Pay-Group/best-pay-sdk
 
 ## java -jar方式启动程序（建议用该种方式启动，比部署Tomcat方式要好）
