@@ -1,67 +1,73 @@
--- ÉÌÆ·
-create table `product_info` (
-	`product_id` varchar(32) not null,
-	`product_name` varchar(64) not null comment 'ÉÌÆ·Ãû³Æ',
-	`product_price` decimal(8,2) not null comment 'µ¥¼Û',
-	`product_stock` int not null comment '¿â´æ',
-	`product_description` varchar(64) comment 'ÃèÊö',
-	`product_icon` varchar(512) comment 'Ğ¡Í¼',
-	`product_status` tinyint(3) DEFAULT '0' COMMENT 'ÉÌÆ·×´Ì¬,0Õı³£1ÏÂ¼Ü',
-	`category_type` int not null comment 'ÀàÄ¿±àºÅ',
-	`create_time` timestamp not null default current_timestamp comment '´´½¨Ê±¼ä',
-	`update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ĞŞ¸ÄÊ±¼ä',
-	primary key (`product_id`)
-) comment 'ÉÌÆ·±í';
+# å¾®ä¿¡ç‚¹é¤æ•°æ®åº“
 
--- ÀàÄ¿
+
+```sql
+-- ç±»ç›®
 create table `product_category` (
-	`category_id` int not null auto_increment,
-	`category_name` varchar(64) not null comment 'ÀàÄ¿Ãû×Ö',
-	`category_type` int not null comment 'ÀàÄ¿±àºÅ',
-	`create_time` timestamp not null default current_timestamp comment '´´½¨Ê±¼ä',
-	`update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ĞŞ¸ÄÊ±¼ä',
-	primary key(`category_id`),
-	unique key `uqe_category_type` (`category_type`)
-) comment 'ÀàÄ¿±í';
+    `category_id` int not null auto_increment,
+    `category_name` varchar(64) not null comment 'ç±»ç›®åå­—',
+    `category_type` int not null comment 'ç±»ç›®ç¼–å·',
+    `create_time` timestamp not null default current_timestamp comment 'åˆ›å»ºæ—¶é—´',
+    `update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ä¿®æ”¹æ—¶é—´',
+    primary key (`category_id`)
+);
 
--- ¶©µ¥
+-- å•†å“
+create table `product_info` (
+    `product_id` varchar(32) not null,
+    `product_name` varchar(64) not null comment 'å•†å“åç§°',
+    `product_price` decimal(8,2) not null comment 'å•ä»·',
+    `product_stock` int not null comment 'åº“å­˜',
+    `product_description` varchar(64) comment 'æè¿°',
+    `product_icon` varchar(512) comment 'å°å›¾',
+    `product_status` tinyint(3) DEFAULT '0' COMMENT 'å•†å“çŠ¶æ€,0æ­£å¸¸1ä¸‹æ¶',
+    `category_type` int not null comment 'ç±»ç›®ç¼–å·',
+    `create_time` timestamp not null default current_timestamp comment 'åˆ›å»ºæ—¶é—´',
+    `update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ä¿®æ”¹æ—¶é—´',
+    primary key (`product_id`)
+);
+
+-- è®¢å•
 create table `order_master` (
     `order_id` varchar(32) not null,
-    `buyer_name` varchar(32) not null comment 'Âò¼ÒÃû×Ö',
-    `buyer_phone` varchar(32) not null comment 'Âò¼Òµç»°',
-    `buyer_address` varchar(128) not null comment 'Âò¼ÒµØÖ·',
-    `buyer_openid` varchar(64) not null comment 'Âò¼ÒÎ¢ĞÅopenid',
-    `order_amount` decimal(8,2) not null comment '¶©µ¥×Ü½ğ¶î',
-    `order_status` tinyint(3) not null default '0' comment '¶©µ¥×´Ì¬, Ä¬ÈÏ0ÎªĞÂÏÂµ¥',
-    `pay_status` tinyint(3) not null default '0' comment 'Ö§¸¶×´Ì¬, Ä¬ÈÏ0ÎªÎ´Ö§¸¶',
-    `create_time` timestamp not null default current_timestamp comment '´´½¨Ê±¼ä',
-    `update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ĞŞ¸ÄÊ±¼ä',
+    `buyer_name` varchar(32) not null comment 'ä¹°å®¶åå­—',
+    `buyer_phone` varchar(32) not null comment 'ä¹°å®¶ç”µè¯',
+    `buyer_address` varchar(128) not null comment 'ä¹°å®¶åœ°å€',
+    `buyer_openid` varchar(64) not null comment 'ä¹°å®¶å¾®ä¿¡openid',
+    `order_amount` decimal(8,2) not null comment 'è®¢å•æ€»é‡‘é¢',
+    `order_status` tinyint(3) not null default '0' comment 'è®¢å•çŠ¶æ€, é»˜è®¤ä¸ºæ–°ä¸‹å•',
+    `pay_status` tinyint(3) not null default '0' comment 'æ”¯ä»˜çŠ¶æ€, é»˜è®¤æœªæ”¯ä»˜',
+    `create_time` timestamp not null default current_timestamp comment 'åˆ›å»ºæ—¶é—´',
+    `update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ä¿®æ”¹æ—¶é—´',
     primary key (`order_id`),
     key `idx_buyer_openid` (`buyer_openid`)
-) comment '¶©µ¥±í';
+);
 
--- ¶©µ¥ÏêÇé
+-- è®¢å•å•†å“
 create table `order_detail` (
     `detail_id` varchar(32) not null,
     `order_id` varchar(32) not null,
     `product_id` varchar(32) not null,
-    `product_name` varchar(64) not null comment 'ÉÌÆ·Ãû³Æ',
-    `product_price` decimal(8,2) not null comment 'µ±Ç°¼Û¸ñ,µ¥Î»·Ö',
-    `product_quantity` int not null comment 'ÊıÁ¿',
-    `product_icon` varchar(512) comment 'Ğ¡Í¼',
-    `create_time` timestamp not null default current_timestamp comment '´´½¨Ê±¼ä',
-    `update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ĞŞ¸ÄÊ±¼ä',
+    `product_name` varchar(64) not null comment 'å•†å“åç§°',
+    `product_price` decimal(8,2) not null comment 'å½“å‰ä»·æ ¼,å•ä½åˆ†',
+    `product_quantity` int not null comment 'æ•°é‡',
+    `product_icon` varchar(512) comment 'å°å›¾',
+    `create_time` timestamp not null default current_timestamp comment 'åˆ›å»ºæ—¶é—´',
+    `update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ä¿®æ”¹æ—¶é—´',
     primary key (`detail_id`),
     key `idx_order_id` (`order_id`)
-) comment '¶©µ¥ÏêÇé±í';
+);
 
--- Âô¼Ò(µÇÂ¼ºóÌ¨Ê¹ÓÃ, Âô¼ÒµÇÂ¼Ö®ºó¿ÉÄÜÖ±½Ó²ÉÓÃÎ¢ĞÅÉ¨ÂëµÇÂ¼£¬²»Ê¹ÓÃÕËºÅÃÜÂë)
+-- å–å®¶(ç™»å½•åå°ä½¿ç”¨, å–å®¶ç™»å½•ä¹‹åå¯èƒ½ç›´æ¥é‡‡ç”¨å¾®ä¿¡æ‰«ç ç™»å½•ï¼Œä¸ä½¿ç”¨è´¦å·å¯†ç )
 create table `seller_info` (
-    `seller_id` varchar(32) not null,
+    `id` varchar(32) not null,
     `username` varchar(32) not null,
     `password` varchar(32) not null,
-    `openid` varchar(64) not null comment 'Î¢ĞÅopenid',
-    `create_time` timestamp not null default current_timestamp comment '´´½¨Ê±¼ä',
-    `update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ĞŞ¸ÄÊ±¼ä',
-    primary key (`seller_id`)
-) comment 'Âô¼ÒĞÅÏ¢±í';
+    `openid` varchar(64) not null comment 'å¾®ä¿¡openid',
+    `create_time` timestamp not null default current_timestamp comment 'åˆ›å»ºæ—¶é—´',
+    `update_time` timestamp not null default current_timestamp on update current_timestamp comment 'ä¿®æ”¹æ—¶é—´',
+    primary key (`id`)
+) comment 'å–å®¶ä¿¡æ¯è¡¨';
+
+```
+

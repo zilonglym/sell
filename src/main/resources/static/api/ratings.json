@@ -1,0 +1,25 @@
+﻿{
+	"errorno": 0,
+	"data": [{
+			"username": "3******c",
+			"rateTime": 1469281964000,
+			"rateType": 0,
+			"text": "老板人可以的！",
+			"avatar": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521477656820&di=684651f7f44bb94a2cfa07460c371268&imgtype=0&src=http://img004.hc360.cn/g6/M09/BA/3D/wKhQsFN9dBKEFv83AAAAAPouQo0379.jpg"
+		},
+		{
+			"username": "2******3",
+			"rateTime": 1469271264000,
+			"rateType": 0,
+			"text": "",
+			"avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+		},
+		{
+			"username": "3******b",
+			"rateTime": 1469261964000,
+			"rateType": 1,
+			"text": "服务态度不错",
+			"avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+		}
+	]
+}
