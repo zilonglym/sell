@@ -1,9 +1,15 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
+<<<<<<< .merge_file_a09836
     username: admin
     password: some_pass
     url: jdbc:mysql://111.230.47.102:3306/sell?characterEncoding=utf-8&useSSL=true
+=======
+    username: root
+    password: 123456
+    url: jdbc:mysql://111.230.47.102/sell?characterEncoding=utf-8&useSSL=false
+>>>>>>> .merge_file_a09276
   jpa:
     show-sql: true
   jackson:
@@ -17,6 +23,7 @@ server:
   context-path: /sell
 
 wechat:
+<<<<<<< .merge_file_a09836
   mpAppId: wxd898fcb01713c658
   mpAppSecret: 784234fbf32b7f674257b7925a08e7e1
   openAppId: wx6ad144e54af67d87
@@ -25,6 +32,16 @@ wechat:
   mchKey: C5245D70627C1F8E9964D494B0735025
   keyPath: /var/weixin_cert/h5.p12
   notifyUrl: http://fxoi.natapp1.cc/sell/pay/notify
+=======
+  mpAppId: wxeded39f32f50adb2
+  mpAppSecret: 784234fbf32b7f674257b7925a08e7e1
+  openAppId: openAppId
+  openAppSecret: openAppSecret
+  mchId: mchId
+  mchKey: mchKey
+  keyPath: keyPath/h5.p12
+  notifyUrl: http://fxoi.natapp1.cc/selll/pay/notify
+>>>>>>> .merge_file_a09276
   templateId:
     orderStatus: orderStatus
 
