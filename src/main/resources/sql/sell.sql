@@ -60,13 +60,13 @@ create table `order_detail` (
 
 -- 卖家(登录后台使用, 卖家登录之后可能直接采用微信扫码登录，不使用账号密码)
 create table `seller_info` (
-    `id` varchar(32) not null,
+    `sell_id` varchar(32) not null,
     `username` varchar(32) not null,
     `password` varchar(32) not null,
     `openid` varchar(64) not null comment '微信openid',
     `create_time` timestamp not null default current_timestamp comment '创建时间',
     `update_time` timestamp not null default current_timestamp on update current_timestamp comment '修改时间',
-    primary key (`id`)
+    primary key (`sell_id`)
 ) comment '卖家信息表';
 
 ```
