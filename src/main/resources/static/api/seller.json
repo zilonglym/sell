@@ -1,7 +1,7 @@
 ﻿{
   "errno": 0,
   "data": {
-    "name": "铁道学院(后街超时)",
+    "name": "铁道学院(后街超市)",
     "description": "国际化零售连锁",
     "deliveryTime": 38,
     "score": 4.2,
@@ -9,7 +9,7 @@
     "foodScore": 4.3,
     "rankRate": 69.2,
     "minPrice": 0,
-    "deliveryPrice": 0,
+    "deliveryPrice": 5,
     "ratingCount": 24,
     "sellCount": 90,
     "bulletin": "现拥有100多家营运零售单位，业务范围遍及多个校区。集团以三种主要经营业态引领市场：大型超市，超市以及折扣店",
