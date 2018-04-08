@@ -31,6 +31,9 @@ public class OrderMaster {
 
     /** 买家微信地址 */
     private String buyerAddress;
+    
+    /** 买家留言 */
+    private String buyerComment;
 
     /** 买家微信openid */
     private String buyerOpenid;

@@ -19,6 +19,7 @@
                                     <th>手机号</th>
                                     <th>地址</th>
                                     <th>金额</th>
+                                    <th>备注</th>
                                     <th>订单状态</th>
                                     <th>支付状态</th>
                                     <th>创建时间</th>
@@ -33,6 +34,7 @@
                                     <td>${orderDTO.buyerPhone}</td>
                                     <td>${orderDTO.buyerAddress}</td>
                                     <td>${orderDTO.orderAmount}</td>
+                                    <td>${(orderDTO.buyerComment)!}</td>
                                     <td>${orderDTO.getOrderStatusEnum().message}</td>
                                     <td>${orderDTO.getPayStatusEnum().message}</td>
                                     <td>${orderDTO.createTime}</td>
