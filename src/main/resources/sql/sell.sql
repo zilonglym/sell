@@ -119,6 +119,8 @@ create table `score_function`(
 	`seller_name` varchar(32) not null comment '商家',
 	`score_ratio` decimal(8,4) not null comment '积分兑换比例',
 	`threshold` int not null comment '积分起兑基数',
+	`score_status` tinyint(1) not null comment '参数开关',
+	`describe_info` varchar(64) comment '描述',
 	primary key (`seller_name`)
 ) comment '积分参数表';
 
@@ -147,5 +149,7 @@ create table `score_detail`(
     primary key (`openid`),
     key `idx_openid` (`openid`)
 ) comment '份额流水表';
+
+insert into score_function values('zhihe',0.05,100,1,'积分抵现功能');
 ```
 

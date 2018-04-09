@@ -32,6 +32,15 @@
         <li>
             <a href="/sell/seller/membership/list"><i class="fa fa-fw fa-list-alt"></i> 积分查询</a>
         </li>
+        
+		<li class="dropdown open">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-fw fa-plus"></i> 会员 <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-header">操作</li>
+                <li><a href="/sell/seller/membership/scorefunctionlist"> ->积分功能开关</a></li>
+                <li><a href="/sell/seller/membership/membershiperlist"> ->会员积分及消费额查询</a></li>
+            </ul>
+        </li>
 
         <li>
             <a href="/sell/seller/logout"><i class="fa fa-fw fa-list-alt"></i> 登出</a>
