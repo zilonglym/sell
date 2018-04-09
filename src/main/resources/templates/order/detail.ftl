@@ -11,18 +11,26 @@
         <div id="page-content-wrapper">
             <div class="container">
             <div class="row clearfix">
-                <div class="col-md-4 column">
-                    <table class="table table-bordered">
+                <div class="col-md-8 column">
+                    <table class="table table-bordered  table-condensed">
                         <thead>
                         <tr>
                             <th>订单id</th>
-                            <th>订单总金额</th>
+                            <th>商品总金额</th>
+                            <th>配送费</th>
+                            <th>总支付金额</th>
+                            <th>配送地址</th>
+                            <th>买家留言</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>${orderDTO.orderId}</td>
                             <td>${orderDTO.orderAmount}</td>
+                            <td>${(orderDTO.orderDeliveryAmount)!}</td>
+                            <td>${(orderDTO.orderAmount)!+(orderDTO.orderDeliveryAmount)!}</td>
+                            <td>${(orderDTO.buyerAddress)!}</td>
+                            <td>${(orderDTO.buyerComment)!}</td>
                         </tr>
                         </tbody>
                     </table>

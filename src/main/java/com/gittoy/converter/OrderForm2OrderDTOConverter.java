@@ -28,6 +28,7 @@ public class OrderForm2OrderDTOConverter {
         orderDTO.setBuyerAddress(orderForm.getAddress());
         orderDTO.setBuyerOpenid(orderForm.getOpenid());
         orderDTO.setBuyerComment(orderForm.getComment());
+        orderDTO.setOrderDeliveryAmount(orderForm.getDelivery());
 
         List<OrderDetail> orderDetailList = new ArrayList<>();
         try {

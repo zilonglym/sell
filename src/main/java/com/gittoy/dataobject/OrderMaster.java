@@ -40,6 +40,9 @@ public class OrderMaster {
 
     /** 订单总金额 */
     private BigDecimal orderAmount;
+    
+    /** 配送费用 */
+    private BigDecimal orderDeliveryAmount;
 
     /** 订单状态, 默认0为新下单 */
     private Integer orderStatus = OrderStatusEnum.NEW.getCode();

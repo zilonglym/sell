@@ -46,6 +46,7 @@ create table `order_master` (
     `buyer_comment` varchar(64) comment '买家留言';
     `buyer_openid` varchar(64) not null comment '买家微信openid',
     `order_amount` decimal(8,2) not null comment '订单总金额',
+    `order_delivery_amount` decimal(8,2) not null default 0.0 comment '配送费',
     `order_status` tinyint(3) not null default '0' comment '订单状态, 默认为新下单',
     `pay_status` tinyint(3) not null default '0' comment '支付状态, 默认未支付',
     `create_time` timestamp not null default current_timestamp comment '创建时间',

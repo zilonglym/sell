@@ -1,7 +1,10 @@
 package com.gittoy.form;
 
-import lombok.Data;
+import java.math.BigDecimal;
+
 import org.hibernate.validator.constraints.NotEmpty;
+
+import lombok.Data;
 
 /**
  * OrderForm
@@ -42,4 +45,7 @@ public class OrderForm {
     
     /** 备注 */
     private String comment;
+    
+    /** 配送费用 */
+    private BigDecimal delivery;
 }
