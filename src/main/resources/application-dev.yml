@@ -1,15 +1,15 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    username: admin
-    password: some_pass
-    url: jdbc:mysql://xxx.xxx.xxx.xxx:3306/sell?characterEncoding=utf-8&useSSL=true
+    username: root
+    password: root
+    url: jdbc:mysql://172.28.17.70:3305/wcshop?characterEncoding=utf-8&useSSL=true
   jpa:
     show-sql: true
   jackson:
     default-property-inclusion: non_null
   redis:
-    host: xxx.xxx.xxx.xxx
+    host: 172.28.17.70
     port: 6379
     password: 123456
 
@@ -39,3 +39,5 @@ logging:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+  
+spring.freemarker.request-context-attribute: request
