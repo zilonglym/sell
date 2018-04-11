@@ -3,4 +3,5 @@
     <title>卖家后端管理系统</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/sell/css/style.css">
+    <script language="javascript" type="text/javascript" src="${request.contextPath}/lodop/LodopFuncs.js"></script>
 </head>
