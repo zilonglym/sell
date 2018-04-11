@@ -33,8 +33,8 @@
                                     <td>${membershipInfo.purchaseAmount}</td>
                                     <td>${membershipInfo.score}</td>
                                     <td>${membershipInfo.getMembershipClassEnum().message}</td>
-                                    <td>${membershipInfo.createTime}</td>
-                                    <td>${membershipInfo.updateTime}</td>
+                                    <td>${membershipInfo.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
+                                    <td>${membershipInfo.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                 </tr>
                                 </#list>
                                 </tbody>

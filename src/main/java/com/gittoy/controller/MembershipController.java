@@ -111,6 +111,7 @@ public class MembershipController {
 
         try {
         	ScoreFunction scoreFunctionInfo = new ScoreFunction();
+        	form.setSellerName("zhihe");
             if (form.getSellerName() != null) {
             	scoreFunctionInfo = scoreFunctionService.findOne(form.getSellerName());
             }

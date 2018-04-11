@@ -14,7 +14,7 @@
                 <div class="col-md-6 column">
                     <form role="form" method="post" action="/sell/seller/membership/save">
                     	<div class="form-group" contenteditable="false">
-                            <label>店家简称</label>
+                            <label>店家简称</label>		
                             <input name="sellerName" type="text" class="form-control" value="${(scoreFunction.sellerName)!}'zhihe'" disabled="disabled"/>
                         </div>
                         <div class="form-group">

@@ -37,7 +37,7 @@
                                     <td>${(orderDTO.buyerComment)!}</td>
                                     <td>${orderDTO.getOrderStatusEnum().message}</td>
                                     <td>${orderDTO.getPayStatusEnum().message}</td>
-                                    <td>${orderDTO.createTime}</td>
+                                    <td>${orderDTO.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td><a href="/sell/seller/order/detail?orderId=${orderDTO.orderId}">详情</a></td>
                                     <td>
                                         <#if orderDTO.getOrderStatusEnum().message == "新订单">
