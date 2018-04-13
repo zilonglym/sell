@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="container">
-	                <div class="col-md-2 column">
+	                <div class="col-md-5 column">
 						<table class="table table-bordered table-condensed">
 							<tbody>
 								<tr>
@@ -109,12 +109,12 @@
 			}
 	        
 	        
-	        var b = strs=document.getElementsByClassName("col-md-2 column")[0].innerText.split("\n");
+	        var b = strs=document.getElementsByClassName("col-md-5 column")[0].innerText.split("\n");
 	        
 	        //LODOP.ADD_PRINT_TEXT(268,10,220,200,a.length);
 	        //LODOP.ADD_PRINT_HTM(68,10,220,"10%",document.getElementsByClassName("col-md-4 column")[0].innerHTML);
 	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20,10,220,20,"==========================");
-	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20+20,10,220,b.length*20,document.getElementsByClassName("col-md-2 column")[0].innerText);
+	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20+20,10,220,b.length*20,document.getElementsByClassName("col-md-5 column")[0].innerText);
 	        
 	        //LODOP.ADD_PRINT_HTM(68.0+a.length*20,10,220,b.length*20,document.getElementsByClassName("col-md-2 column")[0].innerHTML);
 	        /*	        LODOP.SET_PRINT_ST
