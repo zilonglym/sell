@@ -18,18 +18,18 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>商品名称&nbsp;</th>
-                            <th>价格&nbsp;</th>
-                            <th>数量&nbsp;</th>
-                            <th>金额&nbsp;</th>
+                            <th>商品名</th>
+                            <th>价格</th>
+                            <th>数量</th>
+                            <th>金额</th>
                         </tr>
                         </thead>
                         <tbody>
                         <#list orderDTO.orderDetailList as orderDetail>
                         <tr>
-                            <td>${orderDetail.productName}&nbsp;</td>
-                            <td>${orderDetail.productPrice}&nbsp;</td>
-                            <td>${orderDetail.productQuantity}&nbsp;</td>
+                            <td>${orderDetail.productName}</td>
+                            <td>${orderDetail.productPrice}</td>
+                            <td>${orderDetail.productQuantity}</td>
                             <td>${orderDetail.productPrice * orderDetail.productQuantity}</td>
                         </tr>
                         </#list>
@@ -42,23 +42,27 @@
 						<table class="table table-bordered table-condensed">
 							<tbody>
 								<tr>
-									<td class="initialism">商品总金额&nbsp;</td>
+									<td class="initialism">电话</td>
+									<td class="text-right" class="initialism">${orderDTO.buyerPhone}</td>
+								</tr>
+								<tr>
+									<td class="initialism">商品总金额</td>
 									<td class="text-right" class="initialism">${orderDTO.orderAmount}</td>
 								</tr>
 								<tr>
-									<td>配送费&nbsp;</td>
+									<td>配送费</td>
 									<td class="text-right">${(orderDTO.orderDeliveryAmount)!}</td>
 								</tr>
 								<tr>
-									<td>总支付金额&nbsp;</td>
-									<td class="text-right">${(orderDTO.orderAmount)!+(orderDTO.orderDeliveryAmount)!}</td>
+									<td>总支付金额</td>
+									<td class="text-right">${(orderDTO.orderAmount+orderDTO.orderDeliveryAmount)!}</td>
 								</tr>
 								<tr>
-									<td>配送地址&nbsp;</td>
+									<td>配送地址</td>
 									<td class="text-right">${(orderDTO.buyerAddress)!}</td>
 								</tr>
 								<tr>
-									<td>买家留言&nbsp;</td>
+									<td>买家留言</td>
 									<td class="text-right">${(orderDTO.buyerComment)!}</td>
 								</tr>							
 							</tbody>
@@ -95,34 +99,28 @@
 		function f_print(){
 			console.log("1");
 			LODOP = getLodop(document.getElementById('LODOP_OB'), document.getElementById('LODOP_EM'));  
-	        LODOP.SET_PRINT_PAGESIZE(3, 600, 100, ""); //规定纸张大小；使用A4纸。  
-	        LODOP.SET_PRINT_STYLE("FontColor", "#000000");//字体颜色  
-	        LODOP.SET_PRINT_STYLE("FontSize", 16); //字体大小  
+	        LODOP.SET_PRINT_PAGESIZE(3, 570, 200, ""); //规定纸张大小；使用A4纸。  
+	        LODOP.SET_PRINT_STYLEA(1,"FontColor", "#000000");//字体颜色  
+	        LODOP.SET_PRINT_STYLEA(1,"FontSize", 26); //字体大小  
 	        LODOP.ADD_PRINT_TEXT(30, 60, 150, 39, "润予置禾超市"); //// 离纸张顶端、距左边、宽、高 
 	        LODOP.SET_PRINT_STYLE("FontSize", 10); //字体大小
 	        var a = strs=document.getElementsByClassName("col-md-4 column")[0].innerText.split("\n");
-	        LODOP.ADD_PRINT_TEXT(68,10,220,20,a[0]);
-	        LODOP.ADD_PRINT_TEXT(88,10,220,20,"==========================");
+	        LODOP.ADD_PRINT_TEXT(68,0,220,20,a[0].replace(new RegExp("\t","gm"),"    "));//商品名称  价格  数量  金额
+	        LODOP.ADD_PRINT_TEXT(88,0,220,20,"==============================");
 	        
-	        for(i = 1;i<a.length;i++){
-	        	LODOP.ADD_PRINT_TEXT(88+i*20,10,220,20,a[i]);
+ 	        for(i = 1;i<a.length;i++){
+	        	//LODOP.ADD_PRINT_TEXT(88+i*20,0,220,20,a[i].replace(new RegExp("\t","gm"),"   "));
+ 	        	LODOP.ADD_PRINT_TEXT(88+i*20,0,220,20,a[i].replace("\t","   ").replace("\t","x").replace("\t","="));
 			}
-	        
+ 	       	        
 	        
 	        var b = strs=document.getElementsByClassName("col-md-5 column")[0].innerText.split("\n");
 	        
-	        //LODOP.ADD_PRINT_TEXT(268,10,220,200,a.length);
-	        //LODOP.ADD_PRINT_HTM(68,10,220,"10%",document.getElementsByClassName("col-md-4 column")[0].innerHTML);
-	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20,10,220,20,"==========================");
-	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20+20,10,220,b.length*20,document.getElementsByClassName("col-md-5 column")[0].innerText);
+	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20,0,220,20,"==============================");
+	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20+20,0,220,b.length*20,document.getElementsByClassName("col-md-5 column")[0].innerText.replace(new RegExp("\t","gm"),"   "));
 	        
-	        //LODOP.ADD_PRINT_HTM(68.0+a.length*20,10,220,b.length*20,document.getElementsByClassName("col-md-2 column")[0].innerHTML);
-	        /*	        LODOP.SET_PRINT_ST
-	        YLE("FontSize", 24); //更换大小  
-	        LODOP.ADD_PRINT_TEXT(110, 50, 360, 39, "更换大小");  
-	        LODOP.ADD_PRINT_LINE(500, 50, 200, 50, 0, 1); //线，竖杠(上边距1,1左边距,上边距2,2左边距,intLineStyle, intLineWidth)  
-	        LODOP.ADD_PRINT_LINE(550, 50, 150, 200, 0, 1); //线，横杠(上边距1,1左边距,上边距2,2左边距,intLineStyle, intLineWidth)   */
-	        LODOP.PREVIEW();//打印预览  
+	        LODOP.PRINT();//打印预览  */
+	        //LODOP.PRINT_DESIGN();//查看Lodop内部html代码的办法
 		}
 
     </script>  
