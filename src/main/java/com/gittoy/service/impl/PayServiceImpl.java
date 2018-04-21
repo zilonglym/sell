@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class PayServiceImpl implements PayService {
 
-    private static final String ORDER_NAME = "微信点餐订单";
+    private static final String ORDER_NAME = "在线商城";
 
     @Autowired
     private BestPayServiceImpl bestPayService;
@@ -44,7 +44,7 @@ public class PayServiceImpl implements PayService {
 
         PayRequest payRequest = new PayRequest();
         payRequest.setOpenid(orderDTO.getBuyerOpenid());
-        payRequest.setOrderAmount(orderDTO.getOrderAmount().doubleValue());
+        payRequest.setOrderAmount(orderDTO.getOrderAmount().doubleValue()+orderDTO.getOrderDeliveryAmount().doubleValue());
         payRequest.setOrderId(orderDTO.getOrderId());
         payRequest.setOrderName(ORDER_NAME);
         payRequest.setPayTypeEnum(BestPayTypeEnum.WXPAY_H5);
@@ -88,11 +88,11 @@ public class PayServiceImpl implements PayService {
         }
 
         // 判断金额是否一致(0.10与0.1)
-        if (!MathUtil.equals(payResponse.getOrderAmount(), orderDTO.getOrderAmount().doubleValue())) {
+        if (!MathUtil.equals(payResponse.getOrderAmount(), orderDTO.getOrderAmount().doubleValue()+orderDTO.getOrderDeliveryAmount().doubleValue())) {
             log.error("【微信支付】异步通知，订单金额不一致，orderId={}，微信通知金额={}，系统金额={}",
                     payResponse.getOrderId(),
                     payResponse.getOrderAmount(),
-                    orderDTO.getOrderAmount());
+                    orderDTO.getOrderAmount().doubleValue()+orderDTO.getOrderDeliveryAmount().doubleValue());
             throw new SellException(ResultEnum.WXPAY_NOTIFY_MONEY_VERIFY_ERROR);
         }
 
@@ -111,7 +111,7 @@ public class PayServiceImpl implements PayService {
     public RefundResponse refund(OrderDTO orderDTO) {
         RefundRequest refundRequest = new RefundRequest();
         refundRequest.setOrderId(orderDTO.getOrderId());
-        refundRequest.setOrderAmount(orderDTO.getOrderAmount().doubleValue());
+        refundRequest.setOrderAmount(orderDTO.getOrderAmount().doubleValue()+orderDTO.getOrderDeliveryAmount().doubleValue());
         refundRequest.setPayTypeEnum(BestPayTypeEnum.WXPAY_H5);
         log.info("【微信退款】request={}", JsonUtil.toJson(refundRequest));
 

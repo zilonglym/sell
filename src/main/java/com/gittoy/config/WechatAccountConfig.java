@@ -28,7 +28,7 @@ public class WechatAccountConfig {
     private String openAppSecret;
 
     /** 商户号 */
-    private String mcId;
+    private String mchId;
 
     /** 商户秘钥 */
     private String mchKey;
