@@ -17,4 +17,10 @@ public class CategoryForm {
 
     /** 类目编号 */
     private Integer categoryType;
+    
+    /** 子类目名字 */
+    private String categorySubName;
+
+    /** 子类目编号 */
+    private Integer categorySubType;
 }

@@ -27,6 +27,12 @@ public class ProductCategory {
 
     /** 类目编号 */
     private Integer categoryType;
+    
+    /** 子类目名字 */
+    private String categorySubName;
+
+    /** 子类目编号 */
+    private Integer categorySubType;
 
     /** 创建时间 */
     private Date createTime;
@@ -37,9 +43,12 @@ public class ProductCategory {
     public ProductCategory() {
     }
 
-    public ProductCategory(String categoryName, Integer categoryType) {
+    public ProductCategory(String categoryName, Integer categoryType,
+    		String categorySubName, Integer categorySubType) {
         this.categoryName = categoryName;
         this.categoryType = categoryType;
+        this.categorySubName = categorySubName;
+        this.categorySubType = categorySubType;
     }
 }
 

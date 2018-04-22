@@ -13,12 +13,17 @@ import java.util.List;
 @Data
 public class ProductVO implements Serializable {
 
-    @JsonProperty("name")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@JsonProperty("name")
     private String categoryName;
 
     @JsonProperty("type")
     private Integer categorytype;
 
     @JsonProperty("foods")
-    private List<ProductInfoVO> productInfoVOList;
+    private List<SubCategoryVO> subCategoryList;
 }
