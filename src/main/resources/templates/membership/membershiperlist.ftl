@@ -100,7 +100,7 @@
         <script>
             var websocket = null;
             if('WebSocket' in window) {
-                websocket = new WebSocket('ws://fxoi.natapp1.cc/sell/webSocket');
+                websocket = new WebSocket('ws://111.230.47.102:8080/sell/webSocket');
             } else {
                 alert('该浏览器不支持websocket!');
             }

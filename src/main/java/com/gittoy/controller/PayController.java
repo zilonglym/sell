@@ -1,6 +1,7 @@
 package com.gittoy.controller;
 
 import com.gittoy.dto.OrderDTO;
+import com.gittoy.enums.PayStatusEnum;
 import com.gittoy.enums.ResultEnum;
 import com.gittoy.exception.SellException;
 import com.gittoy.service.OrderService;
@@ -36,6 +37,9 @@ public class PayController {
         OrderDTO orderDTO = orderService.findOne(orderId);
         if (orderDTO == null) {
             throw new SellException(ResultEnum.ORDER_NOT_EXIT);
+        }
+        if(orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getCode())){
+        	throw new SellException(ResultEnum.ORDER_HAS_PAID_ERROR);
         }
 
         // 2，发起支付
