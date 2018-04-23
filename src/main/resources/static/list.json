@@ -1,0 +1,134 @@
+{
+	"code": 0,
+	"msg": "成功",
+	"data": [{
+		"name": "早餐类",
+		"type": 1,
+		"foods": [
+		{
+		"subtype":"1-1",
+		"subname":"早1",
+		"subfoods":[{
+			"id": "abc01",
+			"name": "1红枣早餐奶-营养早餐奶",
+			"price": 0.01,
+			"description": "营养早餐奶",
+			"icon": "http://img4.imgtn.bdimg.com/it/u=1443074820,2632005682&fm=27&gp=0.jpg"
+		}, {
+			"id": "abc02",
+			"name": "1火腿肠",
+			"price": 0.01,
+			"description": "金华火腿",
+			"icon": "http://img2.imgtn.bdimg.com/it/u=3034126404,2401728486&fm=27&gp=0.jpg"
+		}]
+		},{
+		"subtype":"1-2",
+		"subname":"早2",
+		"subfoods":[{
+			"id": "abc01",
+			"name": "2红枣早餐奶-营养早餐奶",
+			"price": 0.01,
+			"description": "营养早餐奶",
+			"icon": "http://img4.imgtn.bdimg.com/it/u=1443074820,2632005682&fm=27&gp=0.jpg"
+		}, {
+			"id": "abc02",
+			"name": "2火腿肠",
+			"price": 0.01,
+			"description": "金华火腿",
+			"icon": "http://img2.imgtn.bdimg.com/it/u=3034126404,2401728486&fm=27&gp=0.jpg"
+		}]
+		}]
+	},{
+		"name": "水果类",
+		"type": 1,
+		"foods": [
+		{
+		"subtype":"1-1",
+		"subname":"水果类1",
+		"subfoods":[{
+			"id": "abc01",
+			"name": "1红枣早餐奶-营养早餐奶",
+			"price": 0.01,
+			"description": "营养早餐奶",
+			"icon": "http://img4.imgtn.bdimg.com/it/u=1443074820,2632005682&fm=27&gp=0.jpg"
+		}, {
+			"id": "abc02",
+			"name": "1火腿肠",
+			"price": 0.01,
+			"description": "金华火腿",
+			"icon": "http://img2.imgtn.bdimg.com/it/u=3034126404,2401728486&fm=27&gp=0.jpg"
+		}]
+		},{
+		"subtype":"1-2",
+		"subname":"水果类2",
+		"subfoods":[{
+			"id": "abc01",
+			"name": "2红枣早餐奶-营养早餐奶",
+			"price": 0.01,
+			"description": "营养早餐奶",
+			"icon": "http://img4.imgtn.bdimg.com/it/u=1443074820,2632005682&fm=27&gp=0.jpg"
+		}, {
+			"id": "abc02",
+			"name": "2火腿肠",
+			"price": 0.01,
+			"description": "金华火腿",
+			"icon": "http://img2.imgtn.bdimg.com/it/u=3034126404,2401728486&fm=27&gp=0.jpg"
+		}]
+		},
+		{
+		"subtype":"1-1",
+		"subname":"水果类3",
+		"subfoods":[{
+			"id": "abc01",
+			"name": "3红枣早餐奶-营养早餐奶",
+			"price": 0.01,
+			"description": "营养早餐奶",
+			"icon": "http://img4.imgtn.bdimg.com/it/u=1443074820,2632005682&fm=27&gp=0.jpg"
+		}, {
+			"id": "abc02",
+			"name": "3火腿肠",
+			"price": 0.01,
+			"description": "金华火腿",
+			"icon": "http://img2.imgtn.bdimg.com/it/u=3034126404,2401728486&fm=27&gp=0.jpg"
+		}]
+		}]
+	},
+	{
+		"name": "奶茶类",
+		"type": 1,
+		"foods": [
+		{
+		"subtype":"1-1",
+		"subname":"奶茶子类1",
+		"subfoods":[{
+			"id": "abc01",
+			"name": "1丝袜奶茶",
+			"price": 0.01,
+			"description": "营养早餐奶",
+			"icon": "http://img4.imgtn.bdimg.com/it/u=1443074820,2632005682&fm=27&gp=0.jpg"
+		}, {
+			"id": "abc02",
+			"name": "1红茶",
+			"price": 0.01,
+			"description": "金华火腿",
+			"icon": "http://img2.imgtn.bdimg.com/it/u=3034126404,2401728486&fm=27&gp=0.jpg"
+		}]
+		},{
+		"subtype":"1-2",
+		"subname":"奶茶子类2",
+		"subfoods":[{
+			"id": "abc01",
+			"name": "2-丝袜奶茶",
+			"price": 0.01,
+			"description": "营养早餐奶",
+			"icon": "http://img4.imgtn.bdimg.com/it/u=1443074820,2632005682&fm=27&gp=0.jpg"
+		}, {
+			"id": "abc02",
+			"name": "2红茶",
+			"price": 0.01,
+			"description": "金华火腿",
+			"icon": "http://img2.imgtn.bdimg.com/it/u=3034126404,2401728486&fm=27&gp=0.jpg"
+		}]
+		}]
+	}]
+}
