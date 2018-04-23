@@ -14,12 +14,20 @@
                 <div class="col-md-12 column">
                     <form role="form" method="post" action="/sell/seller/category/save">
                         <div class="form-group">
-                            <label>名字</label>
+                            <label>大类目名称</label>
                             <input name="categoryName" type="text" class="form-control" value="${(category.categoryName)!''}"/>
                         </div>
                         <div class="form-group">
-                            <label>type</label>
+                            <label>大类目类型</label>
                             <input name="categoryType" type="number" class="form-control" value="${(category.categoryType)!''}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>子类目名称</label>
+                            <input name="categorySubName" type="text" class="form-control" value="${(category.categorySubName)!''}"/>
+                        </div>
+                        <div class="form-group">
+                            <label>子类目类型</label>
+                            <input name="categorySubType" type="number" class="form-control" value="${(category.categorySubType)!''}"/>
                         </div>
                         <input hidden type="text" name="categoryId" value="${(category.categoryId)!''}">
                         <button type="submit" class="btn btn-default">提交</button>

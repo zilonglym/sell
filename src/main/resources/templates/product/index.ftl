@@ -38,11 +38,11 @@
                             <label>类目</label>
                             <select name="categoryType" class="form-control">
                                 <#list categoryList as category>
-                                    <option value="${category.categoryType}"
-                                            <#if (productInfo.categoryType)?? && productInfo.categoryType == category.categoryType>
+                                    <option value="${category.categoryId}"
+                                            <#if (productInfo.categoryType)?? && productInfo.categoryType == category.categoryId>
                                                 selected
                                             </#if>
-                                        >${category.categoryName}
+                                        >${category.categoryName}-${category.categorySubName}
                                     </option>
                                 </#list>
                             </select>

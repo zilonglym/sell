@@ -85,6 +85,9 @@
         <div class="container">
 			<div class="row clearfix">
 				<div class="col-md-12 column">
+					 <span class="label">&nbsp;</span>
+				</div>
+				<div class="col-md-12 column">
 					 <button type="button" class="btn btn-default" onclick="f_print();">打印订单</button>
 				</div>
 			</div>
