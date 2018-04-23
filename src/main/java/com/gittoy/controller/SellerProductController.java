@@ -49,7 +49,7 @@ public class SellerProductController {
      */
     @GetMapping("list")
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                             @RequestParam(value = "size", defaultValue = "30") Integer size,
                              Map<String, Object> map) {
         PageRequest request = new PageRequest(page - 1, size);
         Page<ProductInfo> productInfoPage = productService.findAll(request);

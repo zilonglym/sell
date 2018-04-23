@@ -17,9 +17,7 @@
                         <tr>
                             <th>类目唯一识别号</th>
                             <th>大类目名称</th>
-                            <th>大类目类型</th>
 							<th>子类目名称</th>
-                            <th>子类目类型</th>
                             <th>创建时间</th>
                             <th>修改时间</th>
                             <th>操作</th>
@@ -31,9 +29,7 @@
                         <tr>
                             <td>${category.categoryId}</td>
                             <td>${category.categoryName}</td>
-                            <td>${category.categoryType}</td>
-                            <td>${category.categorySubName}</td>
-                            <td>${category.categorySubType}</td>                            
+                            <td>${category.categorySubName}</td>                        
                             <td>${category.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                             <td>${category.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                             <td><a href="/sell/seller/category/index?categoryId=${category.categoryId}">修改</a></td>

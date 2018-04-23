@@ -2,6 +2,10 @@ package com.gittoy.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -56,8 +60,8 @@ public class BuyerProductController {
         List<ProductVO> productVOList = new ArrayList<>();
         // 3，数据拼装
         //A B C
-        List<String> CategoryTypeList = productCategoryList.stream().map(e -> e.getCategoryName()).collect(Collectors.toList());
-
+        List<String> CategoryTypeList = productCategoryList.stream().map(ProductCategory::getCategoryName).collect(Collectors.toList());
+        CategoryTypeList = CategoryTypeList.stream().distinct().collect(Collectors.toList());
         for(String categoryType:CategoryTypeList){
         	ProductVO productVO = new ProductVO();
             productVO.setCategoryName(categoryType);
@@ -65,7 +69,7 @@ public class BuyerProductController {
         	List<SubCategoryVO> subCategoryVOList = new ArrayList<>();
         	List<String> CategorySubTypeList = new ArrayList<>(); //A下的 a1 a2 a3
         	productCategoryList.forEach((k)->{
-            	if((k.getCategoryName()==categoryType)&&(!CategorySubTypeList.contains(k.getCategorySubName()))){
+            	if((k.getCategoryName().equals(categoryType))&&(!CategorySubTypeList.contains(k.getCategorySubName()))){
             		CategorySubTypeList.add(k.getCategorySubName());
             	}
             });

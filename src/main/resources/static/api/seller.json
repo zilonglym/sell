@@ -1,51 +1,34 @@
 ﻿{
   "errno": 0,
   "data": {
-    "name": "铁道学院(后街超市)",
-    "description": "国际化零售连锁",
+    "name": "润予置禾超市",
+    "description": "连锁",
     "deliveryTime": 38,
-    "score": 4.2,
-    "serviceScore": 4.1,
-    "foodScore": 4.3,
-    "rankRate": 69.2,
+    "score": 5.0,
+    "serviceScore": 5.0,
+    "foodScore": 5.0,
+    "rankRate": 100.0,
     "minPrice": 0,
     "deliveryPrice": 0,
-    "ratingCount": 24,
-    "sellCount": 90,
+    "ratingCount": 3898,
+    "sellCount": 2000,
     "bulletin": "现拥有100多家营运零售单位，业务范围遍及多个校区。集团以三种主要经营业态引领市场：大型超市，超市以及折扣店",
     "supports": [
       {
         "type": 0,
-        "description": "在线支付满28减5"
+        "description": "25元起送"
       },
       {
         "type": 1,
-        "description": "VC无限橙果汁全场8折"
-      },
-      {
-        "type": 2,
-        "description": "奶茶第二杯半价"
-      },
-      {
-        "type": 3,
-        "description": "该商家支持发票,请下单写好发票抬头"
-      },
-      {
-        "type": 4,
-        "description": "已加入“外卖保”计划,食品安全保障"
+        "description": "消费累计积分，活动期内每100积分可兑5元"
       }
     ],
     "avatar": "http://static.galileo.xiaojukeji.com/static/tms/seller_avatar_256px.jpg",
     "pics": [
-      "http://fuss10.elemecdn.com/8/71/c5cf5715740998d5040dda6e66abfjpeg.jpeg?imageView2/1/w/180/h/180",
-      "http://fuss10.elemecdn.com/b/6c/75bd250e5ba69868f3b1178afbda3jpeg.jpeg?imageView2/1/w/180/h/180",
-      "http://fuss10.elemecdn.com/f/96/3d608c5811bc2d902fc9ab9a5baa7jpeg.jpeg?imageView2/1/w/180/h/180",
-      "http://fuss10.elemecdn.com/6/ad/779f8620ff49f701cd4c58f6448b6jpeg.jpeg?imageView2/1/w/180/h/180"
     ],
     "infos": [
-      "该商家支持发票,请下单写好发票抬头",
       "品类:零售食品",
-      "长沙市韶山南路100号",
+      "中山市",
       "营业时间:6:00-23:30"
     ]
   }
