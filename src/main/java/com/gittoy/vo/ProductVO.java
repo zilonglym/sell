@@ -13,10 +13,11 @@ import java.util.List;
 @Data
 public class ProductVO implements Serializable {
 
-    /**
+
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 5121125469106282552L;
 
 	@JsonProperty("name")
     private String categoryName;

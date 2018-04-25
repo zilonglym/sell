@@ -123,6 +123,7 @@
 	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20+20,0,220,b.length*20,document.getElementsByClassName("col-md-5 column")[0].innerText.replace(new RegExp("\t","gm"),"   "));
 	        
 	        LODOP.PRINT();//打印预览  */
+	        //LODOP.PREVIEW();
 	        //LODOP.PRINT_DESIGN();//查看Lodop内部html代码的办法
 		}
 

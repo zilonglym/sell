@@ -8,10 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 @Data
 public class SubCategoryVO implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8698484632752239139L;
 
 	@JsonProperty("subname")
     private String categorySubName;

@@ -35,12 +35,15 @@ public class PushMessageServiceImpl implements PushMessageService {
         templateMessage.setToUser(orderDTO.getBuyerOpenid());
 
         List<WxMpTemplateData> data = Arrays.asList(
-                new WxMpTemplateData("first", "亲，请记得收货。"),
-                new WxMpTemplateData("keyword1", "微信点餐"),
-                new WxMpTemplateData("keyword2", "18868812345"),
+                new WxMpTemplateData("first", "您的订单已支付成功"),
+                new WxMpTemplateData("keyword1", "润予置禾超市"),
+                new WxMpTemplateData("keyword2", "18933320904"),
                 new WxMpTemplateData("keyword3", orderDTO.getOrderId()),
-                new WxMpTemplateData("keyword4", orderDTO.getOrderStatusEnum().getMessage()),
+                new WxMpTemplateData("keyword4", orderDTO.getPayStatusEnum().getMessage()),
                 new WxMpTemplateData("keyword5", "￥" + orderDTO.getOrderAmount()),
+                new WxMpTemplateData("keyword6", orderDTO.getBuyerPhone()),
+                new WxMpTemplateData("keyword7", orderDTO.getBuyerAddress()),
+                new WxMpTemplateData("keyword8", orderDTO.getBuyerComment()),
                 new WxMpTemplateData("remark", "欢迎再次光临！")
         );
         templateMessage.setData(data);
