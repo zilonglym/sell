@@ -9,24 +9,39 @@
 	<#--边栏sidebar-->
 	<#include "../common/nav.ftl">
 	<div id="page-content-wrapper">
-		<div class="btn-group hidden-xs" id="toolbar" role="group">
-			<div><p>&nbsp;&nbsp;&nbsp;产品分类编号:<br>
-	        <input style="width:250px;" name="categoryName" id="categoryName" placeholder="产品大类" class="input-sm form-control"></p>
-	        </div>
-	        <br><br>
-			<div>
-			<p>&nbsp;&nbsp;&nbsp;客户订单号:<br>
-	        <input style="width:250px;" name="orderId" id="orderId" placeholder="订单id" class="input-sm form-control"></p>
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-6 column">
+					<div>
+						<p>&nbsp;&nbsp;&nbsp;产品分类编号:<br>
+			        	<input style="width:250px;" name="categoryName" id="categoryName" placeholder="产品大类" class="input-sm form-control"></p>
+			        </div>
+					<div>
+						<p>&nbsp;&nbsp;&nbsp;客户订单号:<br>
+			        	<input style="width:250px;" name="orderId" id="orderId" placeholder="订单id" class="input-sm form-control"></p>
+					</div>
+				</div>
+				<div class="col-md-6 column">
+					<div class="column">
+						<p>&nbsp;&nbsp;&nbsp;订单日期范围:<br>
+						<input style="width:250px;" name="startDate" id="startDate" placeholder="起始日期" class="input-sm form-control">
+					</div>
+					<div class="column">
+						<p>&nbsp;&nbsp;&nbsp;~<br>
+						<input style="width:250px;" name="endDate" id="endDate" placeholder="结束日期" class="input-sm form-control">
+					</div>
+				</div>
 			</div>
-	        
-	        <input style="width:250px;" name="startDate" id="startDate" placeholder="起始日期" class="input-sm form-control">
-	        <input style="width:250px;" name="endDate" id="endDate" placeholder="结束日期" class="input-sm form-control">
-	        <select style="width:143px;height: 30px" id="valid" name="valid" class="form-control" >
-	            <option value="">全部</option>
-	            <option value="1">启用</option>
-	            <option value="0">禁用</option>
-	        </select>
-	        <button id="query" type="button" class="btn btn-sm btn-primary">搜索</button>
+		</div>
+
+		<div class="btn-group hidden-xs" id="toolbar" role="group">
+			<div class="container">
+				<div class="row clearfix">
+					<div class="col-md-12 column">
+						 <button id="query" type="button" class="btn btn-sm btn-primary">搜索</button>
+					</div>
+				</div>
+			</div>
 	    </div>
     	<table class="table table-bordered table-condensed" id="table" data-height="400" data-mobile-responsive="true"></table>
 	</div>
