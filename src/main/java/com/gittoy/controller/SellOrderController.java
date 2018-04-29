@@ -221,7 +221,12 @@ public class SellOrderController {
         }
         try {
         	if(StringUtils.isEmpty(queryVo.getCategoryName()) && StringUtils.isEmpty(queryVo.getOrderId()) && StringUtils.isEmpty(queryVo.getStartDate()) && StringUtils.isEmpty(queryVo.getEndDate())){
-        		return result;
+        		PageInfo<OrderDetail> pageData = orderService.findAllSalesList(queryVo);
+                if (pageData != null) {
+                    result.put("total", pageData.getTotal());
+                    result.put("rows", pageData.getList());
+                }
+                return result;
         	}
         	if(StringUtils.isEmpty(queryVo.getStartDate())){
         		queryVo.setStartDate(new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date(118, 3, 12)));

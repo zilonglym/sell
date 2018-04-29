@@ -39,5 +39,7 @@ public interface OrderService {
     PageInfo<OrderDetail> findSalesList(SalesQueryVo queryVo);
     
     PageInfo<OrderDetail> findSalesListByOpenId(SalesQueryVo queryVo);
+    
+    PageInfo<OrderDetail> findAllSalesList(SalesQueryVo queryVo);
 
 }

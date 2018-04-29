@@ -298,6 +298,19 @@ public class OrderServiceImpl implements OrderService {
         PageHelper.startPage(pageNumber, pageSize);
         List<OrderDetail> list = orderDetailRepository.findByOrderId(queryVo.getOrderId());
         if (null == list || list.size() == 0) {
+            log.error("获取销售流水分页信息失败  in findSalesListByOpenId");
+            return null;
+        }
+        return new PageInfo<>(list);
+	}
+
+	@Override
+	public PageInfo<OrderDetail> findAllSalesList(SalesQueryVo queryVo) {
+		int pageNumber = queryVo.getPageNumber();
+        int pageSize = queryVo.getLimit();
+        PageHelper.startPage(pageNumber, pageSize);
+        List<OrderDetail> list = orderDetailRepository.findAll();
+        if (null == list || list.size() == 0) {
             log.error("获取销售流水分页信息失败");
             return null;
         }
