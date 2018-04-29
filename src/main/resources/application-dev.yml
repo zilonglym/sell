@@ -1,15 +1,15 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://172.28.17.70:3305/wcshop?characterEncoding=utf-8&useSSL=true
+    username: admin
+    password: some_pass
+    url: jdbc:mysql://127.0.0.1:3306/sell?characterEncoding=utf-8&useSSL=true
   jpa:
     show-sql: true
   jackson:
     default-property-inclusion: non_null
   redis:
-    host: 172.28.17.70
+    host: 127.0.0.1
     port: 6379
     password: 123456
 
@@ -17,13 +17,13 @@ server:
   context-path: /sell
 
 wechat:
-  mpAppId: wxd898fcb01713c658
-  mpAppSecret: 784234fbf32b7f674257b7925a08e7e1
+  mpAppId: wx1902f6ed0e184846
+  mpAppSecret: a5ba43e938f825f49be830a1531fb61a
   openAppId: wx6ad144e54af67d87
   openAppSecret: 91a2ff6d38a2bbccfb7e9f9079108e2e
-  mchId: 1483469312
-  mchKey: C5245D70627C1F8E9964D494B0735025
-  keyPath: /var/weixin_cert/h5.p12
+  mchId: 1501335121
+  mchKey: ZHIHE18933320904ZWH18933320904CS
+  keyPath: /var/weixin_cert/apiclient_cert.p12
   notifyUrl: http://fxoi.natapp1.cc/sell/pay/notify
   templateId:
     orderStatus: orderStatus

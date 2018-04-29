@@ -30,7 +30,8 @@ public enum ResultEnum {
     LOGOUT_SUCCESS(26, "登出成功"),
     
     ORDER_PAY_STATUS_ERROR(17, "订单支付状态不正确"),
-    ORDER_HAS_PAID_ERROR(27, "订单已经支付");
+    ORDER_HAS_PAID_ERROR(27, "订单已经支付"),
+    ORDER_PAY_WAIT_ERROR(28, "订单尚未支付");
 
     private Integer code;
 

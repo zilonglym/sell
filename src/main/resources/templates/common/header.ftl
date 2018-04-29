@@ -3,5 +3,30 @@
     <title>卖家后端管理系统</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/sell/css/style.css">
-    <script language="javascript" type="text/javascript" src="${request.contextPath}/lodop/LodopFuncs.js"></script>
+    <link href="${request.contextPath}/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="${request.contextPath}/lodop/LodopFuncs.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/js/jquery.min.js?v=2.1.4"></script>
+    
+    <!-- Bootstrap table -->
+	<script src="${request.contextPath}/js/bootstrap.min.js?v=3.3.6" type="text/javascript"></script>
+	<script src="${request.contextPath}/js/plugins/bootstrap-table/bootstrap-table.min.js" type="text/javascript"></script>
+	<script src="${request.contextPath}/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"
+	        type="text/javascript"></script>
+	<%-- <script src="${request.contextPath}/js/tableExport.js"></script> --%>
+	<script src="${request.contextPath}/js/plugins/bootstrap-table/export/bootstrap-table-export.js"></script>
+	<script src="${request.contextPath}/js/plugins/footable/footable.all.min.js"></script>
+	<script src="${request.contextPath}/js/plugins/laydate/laydate.js"></script>
+	
+	    <style type="text/css">
+        #toolbar input, button, select {
+            float: left;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+    </style>
+
 </head>

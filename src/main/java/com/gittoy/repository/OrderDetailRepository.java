@@ -1,8 +1,10 @@
 package com.gittoy.repository;
 
 import com.gittoy.dataobject.OrderDetail;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,4 +14,6 @@ import java.util.List;
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, String> {
 
     List<OrderDetail> findByOrderId(String orderId);
+
+	List<OrderDetail> findByOrderIdAndCreateTimeBetween(String orderId, String startDate, String endDate);
 }

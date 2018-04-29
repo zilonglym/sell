@@ -1,10 +1,15 @@
 package com.gittoy.dataobject;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import com.gittoy.vo.BaseQueryVo;
+
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * OrderDetail
@@ -12,7 +17,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
-public class OrderDetail {
+public class OrderDetail extends BaseQueryVo{
 
     /** 详情id */
     @Id
@@ -36,6 +41,8 @@ public class OrderDetail {
     /** 小图 */
     private String productIcon;
 
+    /** 创建时间 */
+    private Date createTime;
 }
 
 /** ------------------------------------------------------------------

@@ -1,5 +1,7 @@
 package com.gittoy.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.gittoy.converter.OrderMaster2OrderDTOConverter;
 import com.gittoy.dataobject.OrderDetail;
 import com.gittoy.dataobject.OrderMaster;
@@ -17,6 +19,8 @@ import com.gittoy.service.PayService;
 import com.gittoy.service.ProductService;
 import com.gittoy.service.WebSocket;
 import com.gittoy.utils.KeyUtil;
+import com.gittoy.vo.SalesQueryVo;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,6 +210,12 @@ public class OrderServiceImpl implements OrderService {
             log.error("【完结订单】订单状态不正确，orderId={}, orderStatus={}", orderDTO.getOrderId(), orderDTO.getOrderStatus());
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
+        
+        // 判断订单状态
+        if (!orderDTO.getPayStatus().equals(PayStatusEnum.WAIT.getCode())) {
+            log.error("【完结订单】订单支付状态不正确，orderId={}, orderPayStatus={}", orderDTO.getOrderId(), orderDTO.getPayStatus());
+            throw new SellException(ResultEnum.ORDER_PAY_WAIT_ERROR);
+        }
 
         // 修改状态
         orderDTO.setOrderStatus(OrderStatusEnum.FINISHED.getCode());
@@ -267,4 +277,30 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent());
         return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
+
+	@Override
+	public PageInfo<OrderDetail> findSalesList(SalesQueryVo queryVo) {
+		int pageNumber = queryVo.getPageNumber();
+        int pageSize = queryVo.getLimit();
+        PageHelper.startPage(pageNumber, pageSize);
+        List<OrderDetail> list = orderDetailRepository.findByOrderIdAndCreateTimeBetween(queryVo.getOrderId(),queryVo.getStartDate(),queryVo.getEndDate());
+        if (null == list || list.size() == 0) {
+            log.error("获取销售流水分页信息失败");
+            return null;
+        }
+        return new PageInfo<>(list);
+	}
+
+	@Override
+	public PageInfo<OrderDetail> findSalesListByOpenId(SalesQueryVo queryVo) {
+		int pageNumber = queryVo.getPageNumber();
+        int pageSize = queryVo.getLimit();
+        PageHelper.startPage(pageNumber, pageSize);
+        List<OrderDetail> list = orderDetailRepository.findByOrderId(queryVo.getOrderId());
+        if (null == list || list.size() == 0) {
+            log.error("获取销售流水分页信息失败");
+            return null;
+        }
+        return new PageInfo<>(list);
+	}
 }

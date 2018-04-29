@@ -1,6 +1,10 @@
 package com.gittoy.service;
 
+import com.github.pagehelper.PageInfo;
+import com.gittoy.dataobject.OrderDetail;
 import com.gittoy.dto.OrderDTO;
+import com.gittoy.vo.SalesQueryVo;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -30,5 +34,10 @@ public interface OrderService {
 
     /** 查询订单列表：所有 */
     Page<OrderDTO> findList(Pageable pageable);
+    
+    /** 查询销售流水     */
+    PageInfo<OrderDetail> findSalesList(SalesQueryVo queryVo);
+    
+    PageInfo<OrderDetail> findSalesListByOpenId(SalesQueryVo queryVo);
 
 }

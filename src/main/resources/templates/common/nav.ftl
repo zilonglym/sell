@@ -26,7 +26,7 @@
         </li>
         
         <li>
-            <a href="/sell/seller/order/list"><i class="fa fa-fw fa-list-alt"></i> 流水账单</a>
+            <a href="/sell/seller/order/flow/index"><i class="fa fa-fw fa-list-alt"></i> 流水账单</a>
         </li>
         
 		<li class="dropdown open">
