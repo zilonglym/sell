@@ -1,5 +1,7 @@
 package com.gittoy.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -17,10 +19,10 @@ public class SalesQueryVo extends BaseQueryVo {
 	/**
 	 * 查询起始日期
 	 */
-	private String startDate;
+	private Date startDate;
 	
 	/**
 	 * 查询结束日期
 	 */
-	private String endDate;
+	private Date endDate;
 }

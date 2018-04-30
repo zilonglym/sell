@@ -43,6 +43,19 @@ public class OrderDetail extends BaseQueryVo{
 
     /** 创建时间 */
     private Date createTime;
+    
+    public OrderDetail(){}
+    
+    public OrderDetail(String detailId, String orderId, String productId, String productName, BigDecimal productPrice, Integer productQuantity, String productIcon, Date createTime){
+    	this.detailId = detailId;
+    	this.orderId = orderId;
+    	this.productId = productId;
+    	this.productName = productName;
+    	this.productPrice = productPrice;
+    	this.productQuantity = productQuantity;
+    	this.productIcon = productIcon;
+    	this.createTime = createTime;
+    }
 }
 
 /** ------------------------------------------------------------------

@@ -5,6 +5,9 @@ import com.gittoy.dataobject.OrderDetail;
 import com.gittoy.dto.OrderDTO;
 import com.gittoy.vo.SalesQueryVo;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -38,8 +41,25 @@ public interface OrderService {
     /** 查询销售流水     */
     PageInfo<OrderDetail> findSalesList(SalesQueryVo queryVo);
     
-    PageInfo<OrderDetail> findSalesListByOpenId(SalesQueryVo queryVo);
+    List<OrderDetail> findSalesListByOrderId(Pageable pageable, SalesQueryVo queryVo);
+    /** 默认查询所有销售流水 */
+    List<OrderDetail> findAllSalesList(Pageable pageable, SalesQueryVo queryVo);
+    /** 按产品大类分 */
+    List<OrderDetail> findAllSalesListByCategory(Pageable pageable, SalesQueryVo queryVo);
+    /** 按时间查询 */
+    List<OrderDetail> findByCreateTimeBetween(Pageable pageable, SalesQueryVo queryVo);
+    /** 按产品大类 + 时间分 */
+    List<OrderDetail> findAllSalesListByCategoryAndCreateTime(Pageable pageable, SalesQueryVo queryVo);
     
-    PageInfo<OrderDetail> findAllSalesList(SalesQueryVo queryVo);
+    Long countOrderDetailByOrderId(String orderId);
+    
+    Long countOrderDetail();
+    
+    Long countOrderDetailByCreateTimeBetween(Date startDate,Date endDate);
+    
+    Long countOrderDetailByCategoryName(String categoryName);
 
+	Long countOrderDetailByCategoryNameAndCreateTime(SalesQueryVo queryVo);
+
+	
 }

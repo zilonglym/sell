@@ -1,14 +1,12 @@
 package com.gittoy.controller;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.pagehelper.PageInfo;
 import com.gittoy.dataobject.MembershipClass;
 import com.gittoy.dataobject.MembershipInfo;
 import com.gittoy.dataobject.OrderDetail;
@@ -33,6 +30,7 @@ import com.gittoy.exception.SellException;
 import com.gittoy.service.MembershipClassService;
 import com.gittoy.service.MembershipService;
 import com.gittoy.service.OrderService;
+import com.gittoy.utils.DateUtil;
 import com.gittoy.vo.SalesQueryVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -207,25 +205,72 @@ public class SellOrderController {
         return view;
     }
     
-    @ResponseBody
+    @SuppressWarnings("rawtypes")
+	@ResponseBody
     @RequestMapping(value = "/flow/getSalesFlowList", method = RequestMethod.POST)
     public Map<String, Object> getList(@RequestBody SalesQueryVo queryVo) {
 
         Map<String, Object> result = new HashMap<>();
         result.put("total", 0);
         result.put("rows", new ArrayList());
-
+        
         // 参数验证
         if (null == queryVo) {
             return result;
         }
-        try {
+        
+        Sort sort = new Sort(Direction.DESC, "createTime");
+    	PageRequest request = new PageRequest(queryVo.getPageNumber() - 1, queryVo.getLimit(),sort);
+        
+    	//返回所有流水
+        if(StringUtils.isEmpty(queryVo.getCategoryName()) && queryVo.getStartDate() == null && queryVo.getEndDate() == null){
+        	List<OrderDetail> pageAllData = orderService.findAllSalesList(request, queryVo);
+        	if (pageAllData != null) {
+                result.put("total", orderService.countOrderDetail());
+                result.put("rows", pageAllData);
+            }
+        	return result;
+        }
+        //分类为空，按时间查询
+        if(queryVo.getStartDate() != null && queryVo.getEndDate() != null && StringUtils.isEmpty(queryVo.getCategoryName())){
+        	queryVo.setStartDate(DateUtil.formatStartDate(queryVo.getStartDate()));
+        	queryVo.setEndDate(DateUtil.formatEndDate(queryVo.getEndDate()));
+        	
+        	List<OrderDetail> pageData = orderService.findByCreateTimeBetween(request, queryVo);
+        	if (pageData != null) {
+                result.put("total", orderService.countOrderDetailByCreateTimeBetween(queryVo.getStartDate(), queryVo.getEndDate()));
+                result.put("rows", pageData);
+            }
+        }
+        //时间为空，按大类查询
+        if(queryVo.getStartDate() == null && !StringUtils.isEmpty(queryVo.getCategoryName())){
+        	List<OrderDetail> pageData = orderService.findAllSalesListByCategory(request, queryVo);
+        	if (pageData != null) {
+                result.put("total", orderService.countOrderDetailByCategoryName(queryVo.getCategoryName()));
+                result.put("rows", pageData);
+            }
+        }
+        
+        //按大类和时间查询
+        if(queryVo.getStartDate() != null && queryVo.getEndDate() != null && !StringUtils.isEmpty(queryVo.getCategoryName())){
+        	queryVo.setStartDate(DateUtil.formatStartDate(queryVo.getStartDate()));
+        	queryVo.setEndDate(DateUtil.formatEndDate(queryVo.getEndDate()));
+        	List<OrderDetail> pageData = orderService.findAllSalesListByCategoryAndCreateTime(request, queryVo);
+        	if (pageData != null) {
+                result.put("total", orderService.countOrderDetailByCategoryNameAndCreateTime(queryVo));
+                result.put("rows", pageData);
+            }
+        }
+        
+    	return result;
+    	
+        /*try {
         	if(StringUtils.isEmpty(queryVo.getCategoryName()) && StringUtils.isEmpty(queryVo.getOrderId()) && StringUtils.isEmpty(queryVo.getStartDate()) && StringUtils.isEmpty(queryVo.getEndDate())){
-        		PageInfo<OrderDetail> pageData = orderService.findAllSalesList(queryVo);
-                if (pageData != null) {
-                    result.put("total", pageData.getTotal());
-                    result.put("rows", pageData.getList());
-                }
+//        		PageInfo<OrderDetail> pageData = orderService.findAllSalesList(queryVo);
+//                if (pageData != null) {
+//                    result.put("total", pageData.getTotal());
+//                    result.put("rows", pageData.getList());
+//                }
                 return result;
         	}
         	if(StringUtils.isEmpty(queryVo.getStartDate())){
@@ -243,5 +288,14 @@ public class SellOrderController {
             log.error("获取销售流水查询配置异常 e:{}" + e.getMessage(), e);
         }
         return result;
+        
+        
+        
+        Page<OrderDTO> orderDTOPage = orderService.findList(request);
+        map.put("orderDTOPage", orderDTOPage);
+        map.put("currentPage", page);
+        map.put("size", size);
+        return new ModelAndView("/order/list", map);*/
+        
     }
 }

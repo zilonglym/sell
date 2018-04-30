@@ -42,6 +42,10 @@
 						<table class="table table-bordered table-condensed">
 							<tbody>
 								<tr>
+									<td class="initialism">买家</td>
+									<td class="text-right" class="initialism">${orderDTO.buyerName}</td>
+								</tr>
+								<tr>
 									<td class="initialism">电话</td>
 									<td class="text-right" class="initialism">${orderDTO.buyerPhone}</td>
 								</tr>

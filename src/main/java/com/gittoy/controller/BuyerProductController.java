@@ -2,10 +2,6 @@ package com.gittoy.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -39,7 +35,8 @@ public class BuyerProductController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/list")
+    @SuppressWarnings("rawtypes")
+	@GetMapping("/list")
     public ResultVO list() {
 
         // 1，查询所有上架的商品

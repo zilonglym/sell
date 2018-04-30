@@ -53,6 +53,10 @@ html {
   padding-top: 70px;
   width: 100%;
 }
+#page-content-wrapper2 {
+  padding-top: 10px;
+  width: 100%;
+}
 /*-------------------------------*/
 /*     Sidebar nav styles        */
 /*-------------------------------*/

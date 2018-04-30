@@ -1,6 +1,5 @@
 package com.gittoy.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.gittoy.converter.OrderMaster2OrderDTOConverter;
 import com.gittoy.dataobject.OrderDetail;
@@ -33,6 +32,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -211,8 +211,8 @@ public class OrderServiceImpl implements OrderService {
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
         
-        // 判断订单状态
-        if (!orderDTO.getPayStatus().equals(PayStatusEnum.WAIT.getCode())) {
+        // 判断订单支付状态
+        if (orderDTO.getPayStatus().equals(PayStatusEnum.WAIT.getCode())) {
             log.error("【完结订单】订单支付状态不正确，orderId={}, orderPayStatus={}", orderDTO.getOrderId(), orderDTO.getPayStatus());
             throw new SellException(ResultEnum.ORDER_PAY_WAIT_ERROR);
         }
@@ -278,7 +278,7 @@ public class OrderServiceImpl implements OrderService {
         return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
 
-	@Override
+/*	@Override
 	public PageInfo<OrderDetail> findSalesList(SalesQueryVo queryVo) {
 		int pageNumber = queryVo.getPageNumber();
         int pageSize = queryVo.getLimit();
@@ -289,31 +289,65 @@ public class OrderServiceImpl implements OrderService {
             return null;
         }
         return new PageInfo<>(list);
+	}*/
+
+	@Override
+	public List<OrderDetail> findSalesListByOrderId(Pageable pageable, SalesQueryVo queryVo) {
+		List<OrderDetail> orderDetailPage = orderDetailRepository.findByOrderId(queryVo.getOrderId(), pageable);
+        return orderDetailPage;
 	}
 
 	@Override
-	public PageInfo<OrderDetail> findSalesListByOpenId(SalesQueryVo queryVo) {
-		int pageNumber = queryVo.getPageNumber();
-        int pageSize = queryVo.getLimit();
-        PageHelper.startPage(pageNumber, pageSize);
-        List<OrderDetail> list = orderDetailRepository.findByOrderId(queryVo.getOrderId());
-        if (null == list || list.size() == 0) {
-            log.error("获取销售流水分页信息失败  in findSalesListByOpenId");
-            return null;
-        }
-        return new PageInfo<>(list);
+	public List<OrderDetail> findAllSalesList(Pageable pageable, SalesQueryVo queryVo) {
+		return orderDetailRepository.findAll(pageable).getContent();
+	}
+	
+	
+
+	
+
+	@Override
+	public List<OrderDetail> findAllSalesListByCategory(Pageable pageable, SalesQueryVo queryVo) {
+		return orderDetailRepository.findByCategoryName(queryVo.getCategoryName(), pageable);
+	}
+	
+	@Override
+	public List<OrderDetail> findByCreateTimeBetween(Pageable pageable, SalesQueryVo queryVo) {
+		return orderDetailRepository.findByCreateTimeBetween(queryVo.getStartDate(), queryVo.getEndDate(), pageable);
+	}
+	
+	@Override
+	public PageInfo<OrderDetail> findSalesList(SalesQueryVo queryVo) {
+		return null;
 	}
 
 	@Override
-	public PageInfo<OrderDetail> findAllSalesList(SalesQueryVo queryVo) {
-		int pageNumber = queryVo.getPageNumber();
-        int pageSize = queryVo.getLimit();
-        PageHelper.startPage(pageNumber, pageSize);
-        List<OrderDetail> list = orderDetailRepository.findAll();
-        if (null == list || list.size() == 0) {
-            log.error("获取销售流水分页信息失败");
-            return null;
-        }
-        return new PageInfo<>(list);
+	public Long countOrderDetailByOrderId(String orderId) {
+		return orderDetailRepository.countByOrderId(orderId);
+	}
+
+	@Override
+	public Long countOrderDetail() {
+		return orderDetailRepository.count();
+	}
+	
+	@Override
+	public Long countOrderDetailByCreateTimeBetween(Date startDate, Date endDate) {
+		return orderDetailRepository.countByCreateTimeBetween(startDate, endDate);
+	}
+
+	@Override
+	public Long countOrderDetailByCategoryName(String categoryName) {
+		return orderDetailRepository.countByCategoryName(categoryName);
+	}
+	
+	@Override
+	public Long countOrderDetailByCategoryNameAndCreateTime(SalesQueryVo queryVo) {
+		return orderDetailRepository.countByCategoryNameAndCreateTime(queryVo.getCategoryName(), queryVo.getStartDate(), queryVo.getEndDate());
+	}
+	
+	@Override
+	public List<OrderDetail> findAllSalesListByCategoryAndCreateTime(Pageable pageable, SalesQueryVo queryVo) {
+		return orderDetailRepository.findByCategoryNameAndCreateTime(queryVo.getCategoryName(), queryVo.getStartDate(), queryVo.getEndDate(), pageable);
 	}
 }

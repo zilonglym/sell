@@ -37,7 +37,13 @@
                             <td>${productInfo.productPrice}</td>
                             <td>${productInfo.productStock}</td>
                             <td>${productInfo.productDescription}</td>
-                            <td>${productInfo.categoryType}</td>
+                            <td>
+                            	 <#list categoryList as category>
+                            	 	<#if (productInfo.categoryType)?? && productInfo.categoryType == category.categoryId>
+                                    	${category.categoryName}-${category.categorySubName}
+                                    </#if>
+                                </#list>
+                            </td>
                             <td>${productInfo.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                             <td>${productInfo.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                             <td><a href="/sell/seller/product/index?productId=${productInfo.productId}">修改</a></td>
@@ -83,5 +89,10 @@
     </div>
 
 </div>
+<script type="text/javascript">
+	(function () {
+	
+	})();
+</script>
 </body>
 </html>

@@ -4,26 +4,33 @@ import com.gittoy.dataobject.ProductCategory;
 import com.gittoy.exception.SellException;
 import com.gittoy.form.CategoryForm;
 import com.gittoy.service.CategoryService;
+import com.gittoy.utils.ResultVOUtil;
+import com.gittoy.vo.CategoryList;
+import com.gittoy.vo.ResultVO;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 卖家类目
  *
  * Create By GaoYu 2017/11/24 8:16
  */
-@Controller
+@RestController
 @RequestMapping("/seller/category")
 public class SellerCategoryController {
 
@@ -95,5 +102,19 @@ public class SellerCategoryController {
 
         map.put("url", "/sell/seller/category/list");
         return new ModelAndView("common/success", map);
+    }
+    
+    @SuppressWarnings("rawtypes")
+	@GetMapping("/getall")
+    public ResultVO getall() {
+        // 查询所有的类目
+        List<ProductCategory> categoryList = categoryService.findAll();
+        List<String> CategoryTypeList = categoryList.stream().map(ProductCategory::getCategoryName).collect(Collectors.toList());
+        CategoryTypeList = CategoryTypeList.stream().distinct().collect(Collectors.toList());
+        List<CategoryList> result = new ArrayList<>();
+        CategoryList a = new CategoryList();
+        a.setCategory(CategoryTypeList);
+        result.add(a);
+        return ResultVOUtil.success(result);
     }
 }
