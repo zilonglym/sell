@@ -224,9 +224,9 @@ public class SellOrderController {
         
     	//返回所有流水
         if(StringUtils.isEmpty(queryVo.getCategoryName()) && queryVo.getStartDate() == null && queryVo.getEndDate() == null){
-        	List<OrderDetail> pageAllData = orderService.findAllSalesList(request, queryVo);
+        	List<OrderDetail> pageAllData = orderService.findDetailListByPayStatus(request, queryVo);
         	if (pageAllData != null) {
-                result.put("total", orderService.countOrderDetail());
+                result.put("total", orderService.countOrderDetailByPayStatus());
                 result.put("rows", pageAllData);
             }
         	return result;
@@ -255,7 +255,7 @@ public class SellOrderController {
         if(queryVo.getStartDate() != null && queryVo.getEndDate() != null && !StringUtils.isEmpty(queryVo.getCategoryName())){
         	queryVo.setStartDate(DateUtil.formatStartDate(queryVo.getStartDate()));
         	queryVo.setEndDate(DateUtil.formatEndDate(queryVo.getEndDate()));
-        	List<OrderDetail> pageData = orderService.findAllSalesListByCategoryAndCreateTime(request, queryVo);
+        	List<OrderDetail> pageData = orderService.findPaidOrderDetailByCategoryAndCreateTime(request, queryVo);
         	if (pageData != null) {
                 result.put("total", orderService.countOrderDetailByCategoryNameAndCreateTime(queryVo));
                 result.put("rows", pageData);

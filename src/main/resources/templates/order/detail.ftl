@@ -104,7 +104,6 @@
     <script language="javascript" type="text/javascript" >
 	    	var LODOP;  
 		function f_print(){
-			console.log("1");
 			LODOP = getLodop(document.getElementById('LODOP_OB'), document.getElementById('LODOP_EM'));  
 	        LODOP.SET_PRINT_PAGESIZE(3, 570, 200, ""); //规定纸张大小；使用A4纸。  
 	        LODOP.SET_PRINT_STYLEA(1,"FontColor", "#000000");//字体颜色  
@@ -120,15 +119,44 @@
  	        	LODOP.ADD_PRINT_TEXT(88+i*20,0,220,20,a[i].replace("\t","   ").replace("\t","x").replace("\t","="));
 			}
  	       	        
-	        
 	        var b = strs=document.getElementsByClassName("col-md-5 column")[0].innerText.split("\n");
 	        
 	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20,0,220,20,"==============================");
-	        LODOP.ADD_PRINT_TEXT(88.0+a.length*20+20,0,220,b.length*20,document.getElementsByClassName("col-md-5 column")[0].innerText.replace(new RegExp("\t","gm"),"   "));
-	        
+	        //LODOP.ADD_PRINT_TEXT(88.0+a.length*20+20,0,220,b.length*20,document.getElementsByClassName("col-md-5 column")[0].innerText.replace(new RegExp("\t","gm"),"   "));
+	        var b = strs=document.getElementsByClassName("col-md-5 column")[0].innerText.split("\n");
+	        for(i = 0;i<b.length;i++){
+	        	var bi = b[i].split("\t");
+	        	var addString = "";
+	        	var item = getcustomlength(bi[0])+getcustomlength(bi[1]);
+	        	if(item <= 30){
+	        		addString = addspace(30-item)
+	        	}
+	        	var addeditem = bi[0] + addString + bi[1];
+ 	        	LODOP.ADD_PRINT_TEXT(88+a.length*20+20+i*20,0,220,20,addeditem);
+			}
 	        LODOP.PRINT();//打印预览  */
 	        //LODOP.PREVIEW();
 	        //LODOP.PRINT_DESIGN();//查看Lodop内部html代码的办法
+		}
+		
+		function getcustomlength(input){
+			var realLength = 0, len = input.length, charCode = -1;
+			for (var i = 0; i < len; i++) {
+				charCode = input.charCodeAt(i);
+				if (charCode >= 0 && charCode <= 128) 
+					realLength += 1;
+				else
+					realLength += 2;
+			}
+			return realLength;
+		}
+		
+		function addspace(num){
+			var a="";
+			for(var i = 0; i < num ; i++){
+				a = a + " ";
+			}
+			return a;
 		}
 
     </script>  

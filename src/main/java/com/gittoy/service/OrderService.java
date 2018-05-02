@@ -46,14 +46,19 @@ public interface OrderService {
     List<OrderDetail> findAllSalesList(Pageable pageable, SalesQueryVo queryVo);
     /** 按产品大类分 */
     List<OrderDetail> findAllSalesListByCategory(Pageable pageable, SalesQueryVo queryVo);
+    
+    List<OrderDetail> findDetailListByPayStatus(Pageable pageable, SalesQueryVo queryVo);
+    
     /** 按时间查询 */
     List<OrderDetail> findByCreateTimeBetween(Pageable pageable, SalesQueryVo queryVo);
     /** 按产品大类 + 时间分 */
-    List<OrderDetail> findAllSalesListByCategoryAndCreateTime(Pageable pageable, SalesQueryVo queryVo);
+    List<OrderDetail> findPaidOrderDetailByCategoryAndCreateTime(Pageable pageable, SalesQueryVo queryVo);
     
     Long countOrderDetailByOrderId(String orderId);
     
     Long countOrderDetail();
+    
+    Long countOrderDetailByPayStatus();
     
     Long countOrderDetailByCreateTimeBetween(Date startDate,Date endDate);
     

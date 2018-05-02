@@ -50,8 +50,8 @@
 							 <button id="query" type="button" class="btn btn-sm btn-primary">搜索</button>
 							 <span width:60px;></span>
 							 <button id="clear" type="button" class="btn btn-sm btn-primary">重置</button>
-							 <span width:60px;></span>
-							 <button id="exportExcel" type="button" onClick ="$('#table').tableExport({ type: 'excel', escape: 'false',fileName: '流水账单' })" class="btn btn-sm btn-primary">导出Excel</button>
+							 <!-- <span width:60px;></span>
+							 <button hidden id="exportExcel" type="button" onClick ="$('#table').tableExport({ type: 'excel', escape: 'false',fileName: '流水账单',exportDataType: 'all' })" class="btn btn-sm btn-primary">导出Excel</button> -->
 						</div>
 					</div>
 				</div>
@@ -149,12 +149,12 @@
 	                uniqueId: "detailId",                     //每一行的唯一标识，一般为主键列
 	                cardView: false,                    //是否显示详细视图
 	                detailView: false,                  //是否显示父子表
-	                showRefresh: false,                   //刷新按钮
-	                showExport: false,                     //是否显示导出
+	                showRefresh: true,                   //刷新按钮
+	                showExport: true,                     //是否显示导出
 	                exportDataType: "all",              //basic', 'all', 'selected'.
 	                exportTypes:['excel'], 				 //导出文件类型
 	                exportOptions:{  
-	                    fileName: '流水',  //文件名称设置  
+	                    fileName: '流水账单',  //文件名称设置  
 	                    worksheetName: 'sheet1',  //表格工作区名称  
 	                    tableName: '商品流水详情',  
 	                    excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],

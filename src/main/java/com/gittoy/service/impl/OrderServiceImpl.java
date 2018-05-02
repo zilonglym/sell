@@ -347,7 +347,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public List<OrderDetail> findAllSalesListByCategoryAndCreateTime(Pageable pageable, SalesQueryVo queryVo) {
+	public List<OrderDetail> findPaidOrderDetailByCategoryAndCreateTime(Pageable pageable, SalesQueryVo queryVo) {
 		return orderDetailRepository.findByCategoryNameAndCreateTime(queryVo.getCategoryName(), queryVo.getStartDate(), queryVo.getEndDate(), pageable);
+	}
+
+	@Override
+	public List<OrderDetail> findDetailListByPayStatus(Pageable pageable, SalesQueryVo queryVo) {
+		return orderDetailRepository.findByPayStatus(pageable);
+	}
+
+	@Override
+	public Long countOrderDetailByPayStatus() {
+		return orderDetailRepository.countByPayStatus();
 	}
 }
