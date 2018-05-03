@@ -1,12 +1,12 @@
 package com.gittoy.controller;
 
-import com.gittoy.dataobject.ProductCategory;
-import com.gittoy.dataobject.ProductInfo;
-import com.gittoy.exception.SellException;
-import com.gittoy.form.ProductForm;
-import com.gittoy.service.CategoryService;
-import com.gittoy.service.ProductService;
-import com.gittoy.utils.KeyUtil;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.management.RuntimeErrorException;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
-
-import java.util.List;
-import java.util.Map;
+import com.gittoy.dataobject.ProductCategory;
+import com.gittoy.dataobject.ProductInfo;
+import com.gittoy.exception.SellException;
+import com.gittoy.form.ProductForm;
+import com.gittoy.service.CategoryService;
+import com.gittoy.service.ProductService;
+import com.gittoy.service.UploadService;
+import com.gittoy.utils.KeyUtil;
+import com.gittoy.utils.ResultVOUtil;
+import com.gittoy.vo.ResultVO;
 
 /**
  * 卖家端商品
@@ -40,6 +50,9 @@ public class SellerProductController {
 
     @Autowired
     private CategoryService categoryService;
+    
+    @Autowired
+    private UploadService uploadService;
 
     /**
      * 列表
@@ -123,6 +136,30 @@ public class SellerProductController {
         map.put("categoryList", categoryList);
 
         return new ModelAndView("product/index", map);
+    }
+    
+    /**
+     * 商品图片上传
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @SuppressWarnings("rawtypes")
+	@RequestMapping(value="imageupdate",method = RequestMethod.POST)  
+    @ResponseBody    
+    public ResultVO uploadImage(HttpServletRequest request) throws Exception {  
+    	Map<String, String> rtn = new HashMap<>();
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;    
+        MultipartFile file = null;    
+        file = multipartRequest.getFile("file");// 获取上传文件名    
+        boolean isSuccessupload = uploadService.uploadFile(file, request);  
+        if(isSuccessupload){
+            rtn.put("Path", "/opt/data/images/"+file.getOriginalFilename());
+            rtn.put("NetPath", "http://111.230.47.102/images/"+file.getOriginalFilename());
+        }else{
+        	throw new RuntimeErrorException(null, "图片上传失败！");
+        }
+        return ResultVOUtil.success(rtn);    
     }
 
 

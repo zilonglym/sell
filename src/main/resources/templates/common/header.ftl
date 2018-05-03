@@ -19,6 +19,8 @@
 	<script src="${request.contextPath}/js/plugins/footable/footable.all.min.js"></script>
 	<script src="${request.contextPath}/js/plugins/laydate/laydate.js"></script>
 	
+	<script src="${request.contextPath}/js/plugins/ajaxfileupload/ajaxfileupload.js"></script>
+	
 	<script src="${request.contextPath}/js/plugins/datetimepicker/bootstrap-datetimepicker.js"></script>
 	<script src="${request.contextPath}/js/plugins/datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 	
