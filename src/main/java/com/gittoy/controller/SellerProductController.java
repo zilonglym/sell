@@ -87,21 +87,23 @@ public class SellerProductController {
      */
     @RequestMapping("on_sale")
     public ModelAndView onSale(@RequestParam("productId") String productId,
+    		@RequestParam(value = "page", defaultValue = "1") Integer page,
+            @RequestParam(value = "size", defaultValue = "30") Integer size,
                                Map<String, Object> map) {
         try {
             productService.onSale(productId);
         } catch (SellException e) {
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/product/list");
+            map.put("url", "/sell/seller/product/list?page="+page+"&size="+size);
             return new ModelAndView("common/error", map);
         }
 
-        map.put("url", "/sell/seller/product/list");
+        map.put("url", "/sell/seller/product/list?page="+page+"&size="+size);
         return new ModelAndView("common/success", map);
     }
 
     /**
-     * 商品上架
+     * 商品下架
      *
      * @param productId
      * @param map
@@ -109,16 +111,18 @@ public class SellerProductController {
      */
     @RequestMapping("off_sale")
     public ModelAndView offSale(@RequestParam("productId") String productId,
+    		@RequestParam(value = "page", defaultValue = "1") Integer page,
+            @RequestParam(value = "size", defaultValue = "30") Integer size,
                                Map<String, Object> map) {
         try {
             productService.offSale(productId);
         } catch (SellException e) {
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/product/list");
+            map.put("url", "/sell/seller/product/list?page="+page+"&size="+size);
             return new ModelAndView("common/error", map);
         }
 
-        map.put("url", "/sell/seller/product/list");
+        map.put("url", "/sell/seller/product/list?page="+page+"&size="+size);
         return new ModelAndView("common/success", map);
     }
 
