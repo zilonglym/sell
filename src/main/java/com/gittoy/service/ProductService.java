@@ -40,4 +40,7 @@ public interface ProductService {
 
     // 下架
     ProductInfo offSale(String productId);
+    
+ // 下架
+    void delete(String productId);
 }

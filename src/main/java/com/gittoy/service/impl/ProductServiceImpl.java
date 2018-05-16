@@ -109,4 +109,10 @@ public class ProductServiceImpl implements ProductService {
 	public Page<ProductInfo> findByProductName(Pageable pageable, String productName) {
 		return repository.findByProductNameContaining(pageable, productName);
 	}
+
+	@Override
+	public void delete(String productId) {
+		repository.delete(productId);
+		
+	}
 }

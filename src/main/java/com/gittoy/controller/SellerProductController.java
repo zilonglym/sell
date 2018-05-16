@@ -1,5 +1,6 @@
 package com.gittoy.controller;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -102,7 +103,6 @@ public class SellerProductController {
     @ResponseBody
     @RequestMapping(value = "getlist", method = RequestMethod.POST)
     public Map<String, Object> getList2(@RequestBody ProductQueryVo queryVo){
-    
 		Map<String, Object> result = new HashMap<>();
 		result.put("total", 0);
 		result.put("rows", new ArrayList());
@@ -153,6 +153,29 @@ public class SellerProductController {
         map.put("url", "/sell/seller/product/list?page="+page+"&size="+size);
         return new ModelAndView("common/success", map);
     }
+    
+    /**
+     * 商品批量上架
+     *
+     * @param productId
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "batch_on_sale", method = RequestMethod.POST)
+    public ResultVO<?> batchOnSale(@RequestParam(value = "ids", required = true) String ids, Map<String, Object> map) {
+        try {
+        	String[] ss = URLDecoder.decode(ids).replace("ids=", "").split(",");
+        	int count = 0;
+        	for(String id : ss){
+        		productService.onSale(id);
+        		count ++;
+        	}
+        	return ResultVOUtil.success("成功批量上架"+count+"个商品");
+        } catch (SellException e) {
+            return ResultVOUtil.error(1 , "批量上架商品失败");
+        }
+    }
 
     /**
      * 商品下架
@@ -176,6 +199,53 @@ public class SellerProductController {
 
         map.put("url", "/sell/seller/product/list?page="+page+"&size="+size);
         return new ModelAndView("common/success", map);
+    }
+    
+    /**
+     * 商品批量下架
+     *
+     * @param productId
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "batch_off_sale", method = RequestMethod.POST)
+    public ResultVO<?> batchOffSale(@RequestParam(value = "ids", required = true) String ids, Map<String, Object> map) {
+        try {
+        	String[] ss = URLDecoder.decode(ids).replace("ids=", "").split(",");
+        	int count = 0;
+        	for(String id : ss){
+        		productService.offSale(id);
+        		count ++;
+        	}
+        	return ResultVOUtil.success("成功批量下架"+count+"个商品");
+        } catch (SellException e) {
+            return ResultVOUtil.error(1 , "批量下架商品失败");
+        }
+    }
+    
+    
+    /**
+     * 商品批量删除
+     *
+     * @param productId
+     * @param map
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "batch_delete", method = RequestMethod.POST)
+    public ResultVO<?> batchDelete(@RequestParam(value = "ids", required = true) String ids, Map<String, Object> map) {
+        try {
+        	String[] ss = URLDecoder.decode(ids).replace("ids=", "").split(",");
+        	int count = 0;
+        	for(String id : ss){
+        		productService.delete(id);
+        		count ++;
+        	}
+        	return ResultVOUtil.success("成功批量删除"+count+"个商品");
+        } catch (SellException e) {
+            return ResultVOUtil.error(1 , "批量删除商品失败");
+        }
     }
 
     @GetMapping("/index")
@@ -247,7 +317,7 @@ public class SellerProductController {
             return new ModelAndView("common/error", map);
         }
 
-        map.put("url", "/sell/seller/product/list");
+        map.put("url", "/sell/seller/product/list2");
         return new ModelAndView("common/success", map);
     }
 }
