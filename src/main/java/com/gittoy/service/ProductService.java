@@ -24,6 +24,8 @@ public interface ProductService {
     List<ProductInfo> findUpAll();
 
     Page<ProductInfo> findAll(Pageable pageable);
+    
+    Page<ProductInfo> findByProductName(Pageable pageable, String productName);
 
     ProductInfo save(ProductInfo productInfo);
 

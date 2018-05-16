@@ -104,4 +104,9 @@ public class ProductServiceImpl implements ProductService {
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
         return repository.save(productInfo);
     }
+
+	@Override
+	public Page<ProductInfo> findByProductName(Pageable pageable, String productName) {
+		return repository.findByProductNameContaining(pageable, productName);
+	}
 }
