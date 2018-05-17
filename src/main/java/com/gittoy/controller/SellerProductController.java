@@ -281,7 +281,7 @@ public class SellerProductController {
         boolean isSuccessupload = uploadService.uploadFile(file, request);  
         if(isSuccessupload){
             rtn.put("Path", "/opt/data/images/"+file.getOriginalFilename());
-            rtn.put("NetPath", "http://111.230.47.102/images/"+file.getOriginalFilename());
+            rtn.put("NetPath", "http://111.230.47.102/images/"+file.getOriginalFilename()+"!t100x100.jpg");
         }else{
         	throw new RuntimeErrorException(null, "图片上传失败！");
         }

@@ -9,46 +9,75 @@
 		<#--边栏sidebar-->
 		<#include "../common/nav.ftl">
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">新增</h4>
-                </div>
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <label for="productName">名称</label>
-                        <input type="text" name="productName" class="form-control" id="txt_departmentname" placeholder="名称">
-                    </div>
-                    <div class="form-group">
-                        <label for="productPrice">价格</label>
-                        <input type="text" name="productPrice" class="form-control" id="txt_parentdepartment" placeholder="价格">
-                    </div>
-                    <div class="form-group">
-                        <label for="productStock">库存</label>
-                        <input type="number" name="productStock" class="form-control" id="txt_departmentlevel" placeholder="库存">
-                    </div>
-                    <div class="form-group">
-                        <label for="txt_statu">描述</label>
-                        <input type="text" name="txt_statu" class="form-control" id="txt_statu" placeholder="描述">
-                    </div>
-                    <div class="form-group">
-                        <label for="categoryType">类目</label>
-                        <input type="text" name="categoryType" class="form-control" id="txt_statu" placeholder="类目">
-                    </div>
-                    <div class="form-group">
-                        <label for="productIcon">当前图片预览及图片地址</label>
-                        <input type="text" name="productIcon" class="form-control" id="txt_statu" placeholder="图片地址">
-                    </div>                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
-                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                    <h4 class="modal-title" id="myModalLabel">修改</h4>
+	                </div>
+	                <div class="modal-body">
+		                	<form class="form-inline" role="form" method="post" action="/sell/seller/product/save">
+			                    <div class="form-group">
+			                        <label for="productName">名称</label>
+			                        <input type="text" name="productName" class="form-control" id="txt_productName" placeholder="名称">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="productPrice">价格</label>
+			                        <input type="text" name="productPrice" class="form-control" id="txt_productPrice" placeholder="价格">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="productStock">库存</label>
+			                        <input type="number" name="productStock" class="form-control" id="txt_productStock" placeholder="库存">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="productDescription">描述</label>
+			                        <input type="text" name="productDescription" class="form-control" id="txt_productDescription" placeholder="描述">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="categoryType">类目</label>
+			                        <input type="text" name="categoryType" class="form-control" id="txt_categoryType" placeholder="类目">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="productStatus">状态</label>
+			                        <input type="text" name="productStatus" class="form-control" id="txt_productStatus" placeholder="类目">
+			                    </div>
+			                    <input hidden type="text" name="productId" id="txt_productId" value="">	
+				                <div class="form-group">
+			                        <label >当前图片预览及图片地址</label>
+			                        <img height="100" width="100" src="" alt="" id="showpic">
+			                        <input style="width:460px" type="text" name="productIcon" class="form-control" id="txt_productIcon" placeholder="图片地址">
+			                    </div>  
+			                   	<div class="modal-footer">
+				                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+				                    <button type="submit" id="btn_submit" class="btn btn-primary" ><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+				                </div>
+			                </form>
+		                    
+		                
+						        
+                        <div style="float:right">
+                        	<span class="label label-warning">修改图片需要上传图片再保存</span>
+                        	<br>
+                        	<!-- <button type="submit" class="btn btn-default btn-primary">提交并保存</button> -->
+                        </div>
+                    <div id="uploadPicWindow" class="easyui-window" title="上传图片"  style="width:420px;height:220px;padding:20px;background:#fff;" data-options="iconCls:'icon-save',closable:true, collapsible:true,minimizable:true,maximizable:true">    
+					        <form id="picForm" action="" method="post">    
+					            <div id="preview"><label>上传图片预览：</label></div>  
+					            <div style="margin-bottom:20px">    
+					                  选择图片:    
+					                <input type="file" id="file" data-options="prompt:'Choose a file...'" style="width:80%" onchange="preview(this);"/>    
+					            </div>    
+					            <div id="picTip"></div>    
+					            <div id="formWindowfooterPic1" style="padding:5px;text-align:left;">     
+					                <a href="#" onclick="submitPic();" class="easyui-linkbutton" data-options="iconCls:'icon-save'">上传图片</a>    
+					            </div>    
+					        </form>    
+					    </div>
+	                </div>
+	                
+	            </div>
+	        </div>
+    	</div>
 		<div id="page-content-wrapper2" >
 			<p >&nbsp;&nbsp;&nbsp;商品名(模糊搜索):<br>
 	        <input style="width:250px;" name="productName" id="productName" class="input-sm form-control"></p>
@@ -65,9 +94,7 @@
 							 <span width:60px;></span>
 							 <button id="down" type="button" class="btn btn-sm btn-primary">批量下架</button>		
 							 <span width:60px;></span>
-							 <button id="delete" type="button" class="btn btn-sm btn-primary">批量删除</button>
-							 <span width:60px;></span>
-							 <button id="modify" type="button" class="btn btn-sm btn-primary">修改</button>							 							 					 
+							 <button id="delete" type="button" class="btn btn-sm btn-primary">批量删除</button>							 							 					 
 						</div>
 					</div>
 				</div>
@@ -82,7 +109,6 @@
 	
 	<script type="text/javascript">
 	    (function () {
-	
 	         //初始化事件
 	        function initEvent() {
 	            //1.查询按钮事件
@@ -100,7 +126,6 @@
 	
 	        //得到查询的参数
 	        function queryParams(params) {
-	
 	            var temp = {
 	                limit: params.limit,    //页面大小
 	                offset: params.offset,   //页码
@@ -108,12 +133,6 @@
 	            };
 	            return temp;
 	        };
-	        
-	        //修改窗口
-	        $("#modify").click(function () {
-	        	$("#myModalLabel").text("修改");
-	        	$('#myModal').modal();
-	        });
 	        
 	        $("#up").click(function () {
 	            //获取所有被选中的记录  
@@ -160,26 +179,26 @@
 	            downProduct(ids);  
 	        });
 	        
-	      //上架
-	        function upProduct(ids) {  
-	            var msg = "确认批量上架？";  
-	            if (confirm(msg) == true) {  
-	                $.ajax({  
-	                    url: "${request.contextPath}/seller/product/batch_on_sale",  
-	                    type: "post",  
-	                    data: {  
-	                        ids: ids  
-	                    },  
-	                    success: function (data) {  
-	                        alert(data.data);  
-	                        //重新加载记录  
-	                        //重新加载数据  
-	                        $("#table").bootstrapTable('refresh');  
-	                    }  
-	                });  
-	            }  
-	        }  
-	      //下架
+	      	//上架
+			function upProduct(ids) {  
+			    var msg = "确认批量上架？";  
+			    if (confirm(msg) == true) {  
+			        $.ajax({  
+			            url: "${request.contextPath}/seller/product/batch_on_sale",  
+			            type: "post",  
+			            data: {  
+			                ids: ids  
+			            },  
+			            success: function (data) {  
+			                alert(data.data);  
+			                //重新加载记录  
+			                //重新加载数据  
+			                $("#table").bootstrapTable('refresh');  
+			            }  
+			        });  
+			    }  
+			}  
+	      	//下架
 	        function downProduct(ids) {  
 	            var msg = "确认批量下架？";  
 	            if (confirm(msg) == true) {  
@@ -309,6 +328,13 @@
 	                    	s = '<a href="${request.contextPath}/seller/product/index?productId='+row.productId+'">修改</a>';
 	                        return s; 
 	                    }
+	                },{
+	                	title: '修改',
+	                	formatter:function(value,row,index){
+		   					 var s;
+		   					 s = '<button type="button" class="btn btn-info" data-toggle="modal" onclick="getEditInfo(\''+row.productId+'\',\''+row.productName+'\',\''+row.productPrice+'\',\''+row.productStock+'\',\''+row.productDescription+'\',\''+row.categoryType+'\',\''+row.productStatus+'\',\''+row.productIcon+'\');" data-target="#myModal">编辑</button>';
+		   	            	 return s;
+		   				 }
 	                }]
 	            });
 	        }
@@ -335,8 +361,137 @@
 	                var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();  
 	                return date.getFullYear() + "-" + month + "-" + currentDate;  
 	            }  
-	        }  
+	        } 
 	      	
+	      	//html页面调用js文件里的函数，写法必须为dosave = function (){}形式，其他方式写，html页面会搜索不到该函数
+	      	getEditInfo = function(productId, productName, productPrice, productStock, productDescription, categoryType, productStatus, productIcon){
+	      		$("#txt_productId").val(productId); 
+	      		$("#txt_productName").val(productName);
+	      		$("#txt_productPrice").val(productPrice);
+	      		$("#txt_productStock").val(productStock);
+	      		$("#txt_productDescription").val(productDescription);
+	      		$("#txt_categoryType").val(categoryType);
+	      		$("#txt_productStatus").val(productStatus);
+	      		$("#txt_productIcon").val(productIcon);
+	      		var obj=document.getElementById("showpic"); 
+	      		obj.src = productIcon;
+	      	};
+	      	
+	     	// 保存表单
+	        check_form = function()
+	        {
+	            var user_id = $.trim($('#user_id').val());
+	            var act     = $.trim($('#act').val());
+
+	            if(!user_id)
+	            {
+	                alert('用户ID不能为空！');
+	                return false;
+	            }
+	               var form_data = $('#form_data').serialize();
+
+	            // 异步提交数据到action/add_action.php页面
+	            $.ajax(
+	                    {
+	                        url: "action/user_action.php",
+	                        data:{"form_data":form_data,"act":act},
+	                        type: "post",
+	                        beforeSend:function()
+	                        {
+	                            $("#tip").html("<span style='color:blue'>正在处理...</span>");
+	                            return true;
+	                        },
+	                        success:function(data)
+	                        {
+	                            if(data > 0)
+	                            {
+
+	                                var msg = "添加";
+	                                if(act == "edit") msg = "编辑";
+	                                $("#tip").html("<span style='color:blueviolet'>恭喜，" +msg+ "成功！</span>");
+	                                // document.location.href='system_notice.php'
+	                                alert(msg + "OK！");
+	                                location.reload();
+	                            }
+	                            else
+	                            {
+	                                $("#tip").html("<span style='color:red'>失败，请重试</span>");
+	                                alert('操作失败');
+	                            }
+	                        },
+	                        error:function()
+	                        {
+	                            alert('请求出错');
+	                        },
+	                        complete:function()
+	                        {
+	                            $('#acting_tips').hide();
+	                        }
+	                    });
+
+	            return false;
+	        }
+	      	
+	      	preview = function(file){    
+			    var prevDiv = document.getElementById('preview');    
+			    if (file.files && file.files[0]){    
+			        var reader = new FileReader();    
+			        reader.onload = function(evt){    
+			            prevDiv.innerHTML = '<img height="100" width="100" src="' + evt.target.result + '" />';    
+			        }      
+			        reader.readAsDataURL(file.files[0]);    
+			    }else{    
+			        prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';    
+			    }    
+			}    
+	      	
+	      //新建或编辑 保存提交    
+	        submitPic = function(){    
+	            var type="1";//展示图片    
+	            var f = $("#file").val();    
+	            if(f==null||f==""){    
+	                $("#picTip").html("<span style='color:Red'>错误提示:上传文件不能为空,请重新选择文件</span>");    
+	                return false;    
+	              }else{    
+	               var extname = f.substring(f.lastIndexOf(".")+1,f.length);    
+	               extname = extname.toLowerCase();//处理了大小写    
+	               if(extname!= "jpeg"&&extname!= "jpg"&&extname!= "gif"&&extname!= "png"){    
+	                 $("#picTip").html("<span style='color:Red'>错误提示:格式不正确,支持的图片格式为：JPEG、GIF、PNG！</span>");    
+	                 return false;    
+	                }    
+	              }    
+	             var file = document.getElementById("file").files;      
+	             var size = file[0].size;    
+	             if(size>2097152){    
+	                  $("#picTip").html("<span style='color:Red'>错误提示:所选择的图片太大，图片大小最多支持2M!</span>");     
+	                  return false;    
+	              }    
+	            ajaxFileUploadPic(name,type);    
+	        }    
+	    
+	        function ajaxFileUploadPic() {    
+	            $.ajaxFileUpload({    
+	                url : 'imageupdate.action?type=1', //用于文件上传的服务器端请求地址    
+	                secureuri : false, //一般设置为false    
+	                fileElementId : 'file', //文件上传空间的id属性  <input type="file" id="file" name="file" />    
+	                type : 'post',    
+	                dataType : 'json', //返回值类型 一般设置为json    
+	                success : function(data) //服务器成功响应处理函数    
+	                {    
+	                     var path = data.data.NetPath;  
+	                     $("#picTip").html("<span style='color:Red'>图片上传成功!图片地址已更新</span>");
+	                     $("#productIcon").val(String(path));
+	                     
+	                },    
+	                error : function(data)//服务器响应失败处理函数    
+	                {    
+	                	 //alert(data.filePath);  
+	                     $("#picTip").html("<span style='color:Red'>上传图片失败!</span>"); 
+	                     
+	                }    
+	            });    
+	            return false;    
+			} 
 	      	
 	        /* $('#categoryName').change(function() {refreshCategoryName();}); */   //下拉框的点击改变事件，但是会使得选择一次就刷新掉所选择的
 	        function refreshCategoryName(){
