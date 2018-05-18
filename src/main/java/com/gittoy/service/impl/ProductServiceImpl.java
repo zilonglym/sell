@@ -115,4 +115,9 @@ public class ProductServiceImpl implements ProductService {
 		repository.delete(productId);
 		
 	}
+
+	@Override
+	public List<ProductInfo> findByCategoryType(Integer categoryType) {
+		return repository.findByCategoryType(categoryType);
+	}
 }

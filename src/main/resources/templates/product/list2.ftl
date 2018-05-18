@@ -16,7 +16,7 @@
 	                    <h4 class="modal-title" id="myModalLabel">修改</h4>
 	                </div>
 	                <div class="modal-body">
-		                	<form class="form-inline" role="form" method="post" action="/sell/seller/product/save">
+		                	<form class="form-inline" role="form" id="updateForm">
 			                    <div class="form-group">
 			                        <label for="productName">名称</label>
 			                        <input type="text" name="productName" class="form-control" id="txt_productName" placeholder="名称">
@@ -37,44 +37,36 @@
 			                        <label for="categoryType">类目</label>
 			                        <input type="text" name="categoryType" class="form-control" id="txt_categoryType" placeholder="类目">
 			                    </div>
-			                    <div class="form-group">
-			                        <label for="productStatus">状态</label>
-			                        <input type="text" name="productStatus" class="form-control" id="txt_productStatus" placeholder="类目">
-			                    </div>
 			                    <input hidden type="text" name="productId" id="txt_productId" value="">	
 				                <div class="form-group">
 			                        <label >当前图片预览及图片地址</label>
 			                        <img height="100" width="100" src="" alt="" id="showpic">
 			                        <input style="width:460px" type="text" name="productIcon" class="form-control" id="txt_productIcon" placeholder="图片地址">
 			                    </div>  
-			                   	<div class="modal-footer">
-				                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
-				                    <button type="submit" id="btn_submit" class="btn btn-primary" ><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
-				                </div>
 			                </form>
-		                    
-		                
-						        
-                        <div style="float:right">
-                        	<span class="label label-warning">修改图片需要上传图片再保存</span>
-                        	<br>
-                        	<!-- <button type="submit" class="btn btn-default btn-primary">提交并保存</button> -->
-                        </div>
-                    <div id="uploadPicWindow" class="easyui-window" title="上传图片"  style="width:420px;height:220px;padding:20px;background:#fff;" data-options="iconCls:'icon-save',closable:true, collapsible:true,minimizable:true,maximizable:true">    
-					        <form id="picForm" action="" method="post">    
-					            <div id="preview"><label>上传图片预览：</label></div>  
-					            <div style="margin-bottom:20px">    
-					                  选择图片:    
-					                <input type="file" id="file" data-options="prompt:'Choose a file...'" style="width:80%" onchange="preview(this);"/>    
-					            </div>    
-					            <div id="picTip"></div>    
-					            <div id="formWindowfooterPic1" style="padding:5px;text-align:left;">     
-					                <a href="#" onclick="submitPic();" class="easyui-linkbutton" data-options="iconCls:'icon-save'">上传图片</a>    
-					            </div>    
-					        </form>    
-					    </div>
+	                        <div style="float:right">
+	                        	<span class="label label-warning">修改图片需要上传图片再保存</span>
+	                        	<br>
+	                        	<!-- <button type="submit" class="btn btn-default btn-primary">提交并保存</button> -->
+	                        </div>
+		                    <div id="uploadPicWindow" class="easyui-window" title="上传图片"  style="width:420px;height:220px;padding:20px;background:#fff;" data-options="iconCls:'icon-save',closable:true, collapsible:true,minimizable:true,maximizable:true">    
+						        <form id="picForm" action="" method="post">    
+						            <div id="preview"><label>上传图片预览：</label></div>  
+						            <div style="margin-bottom:20px">    
+						                  选择图片:    
+						                <input type="file" id="file" data-options="prompt:'Choose a file...'" style="width:80%" onchange="preview(this);"/>    
+						            </div>    
+						            <div id="picTip"></div>    
+						            <div id="formWindowfooterPic1" style="padding:5px;text-align:left;">     
+						                <a href="#" onclick="submitPic();" class="easyui-linkbutton" data-options="iconCls:'icon-save'">上传图片</a>    
+						            </div>    
+						        </form>    
+						    </div>
+					    	<div class="modal-footer">
+			                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+			                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" ><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+			                </div>
 	                </div>
-	                
 	            </div>
 	        </div>
     	</div>
@@ -99,7 +91,7 @@
 					</div>
 				</div>
 		    </div>
-		    <div style="height: 400px;overlow: auto;" class="table-responsive">
+		    <div style="height: 700px;overlow: auto;" class="table-responsive">
 		    	<table class="table table-bordered table-condensed" id="table" data-mobile-responsive="true"></table>
 		    	<thread></thread>
 		    	<tbody></tbody>
@@ -133,6 +125,29 @@
 	            };
 	            return temp;
 	        };
+	        
+	        update = function(){
+	        	document.getElementById("updateForm").submit();
+	        }
+	      	//表单异步提交
+            $("#btn_submit").on("click",function(){
+                $.ajax({ 
+                    type: 'post', 
+                    data: $('#updateForm').serialize(), 
+                    url: '${request.contextPath}/seller/product/save2',
+                    cache:false,  
+                    dataType:'text', 
+                    success: function (data) {
+                    	console.log(data);
+                        if("success"==data){
+                        	alert('保存成功,并将刷新当前分页');
+                        	$("#table").bootstrapTable('refresh'); 
+                        }else{
+                        	alert('保存失败，请联系运维人员');
+                        }
+                    }   
+                });
+            });
 	        
 	        $("#up").click(function () {
 	            //获取所有被选中的记录  
@@ -176,7 +191,7 @@
 	                ids += rows[i]['productId'] + ',';  
 	            }  
 	            ids = ids.substring(0, ids.length - 1);  
-	            downProduct(ids);  
+	            deleteProduct(ids);  
 	        });
 	        
 	      	//上架
@@ -190,7 +205,7 @@
 			                ids: ids  
 			            },  
 			            success: function (data) {  
-			                alert(data.data);  
+			                alert("批量上架成功，并将刷新当前分页");  
 			                //重新加载记录  
 			                //重新加载数据  
 			                $("#table").bootstrapTable('refresh');  
@@ -218,7 +233,7 @@
 	            }  
 	        }  
 	      //删除
-	        function downProduct(ids) {  
+	        function deleteProduct(ids) {  
 	            var msg = "请确认批量删除？删除后不可恢复";  
 	            if (confirm(msg) == true) {  
 	                $.ajax({  
@@ -311,7 +326,14 @@
 	                    field: 'productStatus',
 	                    sortable: true,
 	                    sortOrder: "asc",
-	                    title: '上架状态'
+	                    title: '上架状态',
+	                    formatter: function (value, row, index) {  
+	                        if(row.productStatus==0){
+	                        	return '在售';
+	                        }else{
+	                        	return '已下架';
+	                        }
+	                    }
 	                },{
 	                    field: 'updateTime',
 	                    sortable: true,
@@ -321,13 +343,6 @@
 	                    formatter: function (value, row, index) {  
 	                        return changeDateFormat(value)  
 	                    } 
-	                },{
-	                	title: '详情',
-	                    formatter: function (value, row, index) {  
-	                    	var s;
-	                    	s = '<a href="${request.contextPath}/seller/product/index?productId='+row.productId+'">修改</a>';
-	                        return s; 
-	                    }
 	                },{
 	                	title: '修改',
 	                	formatter:function(value,row,index){

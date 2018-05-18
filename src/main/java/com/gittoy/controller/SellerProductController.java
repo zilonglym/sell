@@ -14,8 +14,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +42,8 @@ import com.gittoy.vo.ProductQueryVo;
 import com.gittoy.vo.ResultVO;
 import com.gittoy.vo.SalesQueryVo;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 卖家端商品
  *
@@ -51,6 +51,7 @@ import com.gittoy.vo.SalesQueryVo;
  */
 @RestController
 @RequestMapping("/seller/product")
+@Slf4j
 public class SellerProductController {
 
     @Autowired
@@ -319,5 +320,32 @@ public class SellerProductController {
 
         map.put("url", "/sell/seller/product/list2");
         return new ModelAndView("common/success", map);
+    }
+    
+    @PostMapping("/save2")
+    public String save2(@Valid ProductForm form,
+                             BindingResult bindingResult,
+                             Map<String, Object> map) {
+
+        if (bindingResult.hasErrors()) {
+            return "修改保存失败，表格填写不符合要求";
+        }
+
+        ProductInfo productInfo = new ProductInfo();
+        try {
+            // 如果productId为空，说明是新增
+            if (!StringUtils.isEmpty(form.getProductId())) {
+                productInfo = productService.findOne(form.getProductId());
+            } else {
+                form.setProductId(KeyUtil.genUniqueKey());
+            }
+            BeanUtils.copyProperties(form, productInfo);
+            productService.save(productInfo);
+        } catch (SellException e) {
+        	log.error(e.toString());
+        	return "修改保存入库失败";
+        }
+
+        return "success";
     }
 }

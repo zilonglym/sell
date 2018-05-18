@@ -2,6 +2,7 @@ package com.gittoy.service;
 
 import com.github.pagehelper.PageInfo;
 import com.gittoy.dataobject.OrderDetail;
+import com.gittoy.dataobject.OrderMaster;
 import com.gittoy.dto.OrderDTO;
 import com.gittoy.vo.SalesQueryVo;
 
@@ -65,6 +66,11 @@ public interface OrderService {
     Long countOrderDetailByCategoryName(String categoryName);
 
 	Long countOrderDetailByCategoryNameAndCreateTime(SalesQueryVo queryVo);
-
 	
+	/** 姓名模糊查询 */
+	Page<OrderMaster> findByBuyerName(String buyerName, Pageable pageable);
+	/** 手机号模糊查询 */
+	Page<OrderMaster> findByBuyerPhone(String buyerPhone, Pageable pageable);
+	/** 姓名+手机号模糊查询 */
+	Page<OrderMaster> findByBuyerNameAndPhone(String buyerName, String buyerPhone, Pageable pageable);
 }

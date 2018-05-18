@@ -20,7 +20,8 @@
 							<th>子类目名称</th>
                             <th>创建时间</th>
                             <th>修改时间</th>
-                            <th>操作</th>
+                            <th>修改</th>
+                            <th>删除</th>
                         </tr>
                         </thead>
 
@@ -33,6 +34,7 @@
                             <td>${category.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                             <td>${category.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                             <td><a href="/sell/seller/category/index?categoryId=${category.categoryId}">修改</a></td>
+                            <td><a href="/sell/seller/category/delete?categoryId=${category.categoryId}">删除</a></td>
                         </tr>
                         </#list>
                         </tbody>

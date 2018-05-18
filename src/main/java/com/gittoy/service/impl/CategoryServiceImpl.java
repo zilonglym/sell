@@ -37,4 +37,9 @@ public class CategoryServiceImpl implements CategoryService {
     public ProductCategory save(ProductCategory productCategory) {
         return repository.save(productCategory);
     }
+
+	@Override
+	public void delete(Integer categoryId) {
+		repository.delete(categoryId);
+	}
 }

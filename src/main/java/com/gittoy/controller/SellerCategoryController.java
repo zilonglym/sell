@@ -4,6 +4,7 @@ import com.gittoy.dataobject.ProductCategory;
 import com.gittoy.exception.SellException;
 import com.gittoy.form.CategoryForm;
 import com.gittoy.service.CategoryService;
+import com.gittoy.service.ProductService;
 import com.gittoy.utils.ResultVOUtil;
 import com.gittoy.vo.CategoryList;
 import com.gittoy.vo.ResultVO;
@@ -36,6 +37,9 @@ public class SellerCategoryController {
 
     @Autowired
     private CategoryService categoryService;
+    
+    @Autowired
+    private ProductService productService;
 
     /**
      * 类目列表
@@ -67,6 +71,36 @@ public class SellerCategoryController {
         }
 
         return new ModelAndView("category/index", map);
+    }
+    
+    
+    
+    /**
+     * 删除
+     *
+     * @param categoryId
+     * @param map
+     * @return
+     */
+    @GetMapping("/delete")
+    public ModelAndView delete(@RequestParam(value = "categoryId", required = false) Integer categoryId,
+                              Map<String, Object> map) {
+    	
+        if (categoryId != null) {
+        	if(productService.findByCategoryType(categoryId).size()>0){
+        		List<ProductCategory> categoryList = categoryService.findAll();
+        		map.put("msg", "该目录下仍然有商品，不支持删除.若该类下无商品,则微信前端不会展示该类");
+                map.put("url", "/sell/seller/category/list");
+                map.put("categoryList", categoryList);
+                return new ModelAndView("common/error", map);
+        	}else{
+        		categoryService.delete(categoryId);
+        		List<ProductCategory> categoryList2 = categoryService.findAll();
+        		map.put("url", "/sell/seller/category/list");
+                map.put("categoryList", categoryList2);
+        	}
+        }
+        return new ModelAndView("common/success", map);
     }
 
     /**

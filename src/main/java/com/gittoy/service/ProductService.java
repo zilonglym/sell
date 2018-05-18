@@ -41,6 +41,8 @@ public interface ProductService {
     // 下架
     ProductInfo offSale(String productId);
     
- // 下架
+    // 删除商品
     void delete(String productId);
+    
+    List<ProductInfo> findByCategoryType(Integer categoryType);
 }

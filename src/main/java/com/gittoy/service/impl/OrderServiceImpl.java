@@ -360,4 +360,19 @@ public class OrderServiceImpl implements OrderService {
 	public Long countOrderDetailByPayStatus() {
 		return orderDetailRepository.countByPayStatus();
 	}
+
+	@Override
+	public Page<OrderMaster> findByBuyerName(String buyerName, Pageable pageable) {
+		return orderMasterRepository.findByBuyerNameContaining(buyerName, pageable);
+	}
+
+	@Override
+	public Page<OrderMaster> findByBuyerPhone(String buyerPhone, Pageable pageable) {
+		return orderMasterRepository.findByBuyerPhoneContaining(buyerPhone, pageable);
+	}
+
+	@Override
+	public Page<OrderMaster> findByBuyerNameAndPhone(String buyerName, String buyerPhone, Pageable pageable) {
+		return orderMasterRepository.findByBuyerNameContainingAndPhoneContaining(buyerName, buyerPhone, pageable);
+	}
 }
