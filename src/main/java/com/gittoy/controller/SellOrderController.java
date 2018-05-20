@@ -155,12 +155,12 @@ public class SellOrderController {
         } catch (SellException e) {
             log.error("【卖家端取消订单】发生异常{}", e);
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/order/list");
+            map.put("url", "/sell/seller/order/list2");
             return new ModelAndView("common/error", map);
         }
 
         map.put("msg", ResultEnum.ORDER_CANCEL_SUCCESS.getMessage());
-        map.put("url", "/sell/seller/order/list");
+        map.put("url", "/sell/seller/order/list2");
         return new ModelAndView("common/success");
     }
 
@@ -182,7 +182,7 @@ public class SellOrderController {
         } catch (SellException e) {
             log.error("【卖家端查询订单详情】发生异常{}", e);
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/order/list");
+            map.put("url", "/sell/seller/order/list2");
             return new ModelAndView("common/error", map);
         }
 
@@ -239,12 +239,12 @@ public class SellOrderController {
         } catch (SellException e) {
             log.error("【卖家端完结订单】发生异常{}", e);
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/order/list");
+            map.put("url", "/sell/seller/order/list2");
             return new ModelAndView("common/error", map);
         }
 
         map.put("msg", ResultEnum.ORDER_FINISH_SUCCESS.getMessage());
-        map.put("url", "/sell/seller/order/list");
+        map.put("url", "/sell/seller/order/list2");
         return new ModelAndView("common/success");
     }
     
@@ -362,7 +362,7 @@ public class SellOrderController {
         map.put("orderDTOPage", orderDTOPage);
         map.put("currentPage", page);
         map.put("size", size);
-        return new ModelAndView("/order/list", map);*/
+        return new ModelAndView("/order/list2", map);*/
         
     }
 }

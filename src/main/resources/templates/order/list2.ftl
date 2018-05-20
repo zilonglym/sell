@@ -69,7 +69,7 @@
             <source src="/sell/mp3/song.mp3" type="audio/mpeg" />
         </audio>
 
-        <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="${request.contextPath}/bootstrap/bootstrap.min.js"></script>
         <script>
             var websocket = null;
             if('WebSocket' in window) {

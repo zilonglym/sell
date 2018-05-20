@@ -85,7 +85,7 @@ items: [{
 ###订单列表
 
 ```
-GET /sell/buyer/order/list
+GET /sell/buyer/order/list2
 ```
 
 参数
