@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gittoy.dataobject.MembershipClass;
 import com.gittoy.dataobject.MembershipInfo;
 import com.gittoy.dataobject.OrderDetail;
+import com.gittoy.dataobject.OrderMaster;
 import com.gittoy.dto.OrderDTO;
 import com.gittoy.enums.ResultEnum;
 import com.gittoy.exception.SellException;
@@ -31,6 +32,8 @@ import com.gittoy.service.MembershipClassService;
 import com.gittoy.service.MembershipService;
 import com.gittoy.service.OrderService;
 import com.gittoy.utils.DateUtil;
+import com.gittoy.vo.OrderMasterQueryVo;
+import com.gittoy.vo.ProductQueryVo;
 import com.gittoy.vo.SalesQueryVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -71,6 +74,70 @@ public class SellOrderController {
         map.put("currentPage", page);
         map.put("size", size);
         return new ModelAndView("/order/list", map);
+    }
+    
+    
+    @RequestMapping(value = "list2")
+    public ModelAndView list2() {
+        ModelAndView view = new ModelAndView("/order/list2");
+        return view;
+    }
+    
+    /**
+     * 订单列表
+     * @param page 第几页，从第1页开始
+     * @param size 一页有多少条数据
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getlist", method = RequestMethod.POST)
+    public Map<String, Object> getOrderMasterlist(@RequestBody OrderMasterQueryVo queryVo,
+                             Map<String, Object> map) {
+		Map<String, Object> result = new HashMap<>();
+		result.put("total", 0);
+		result.put("rows", new ArrayList());
+		 
+		// 参数验证
+		if (null == queryVo) {
+		    return result;
+		}
+		Sort sort = new Sort(Direction.DESC, "createTime");
+    	PageRequest request = new PageRequest(queryVo.getPageNumber() - 1, queryVo.getLimit(),sort);
+        
+	 	if(StringUtils.isEmpty(queryVo.getBuyerName()) && StringUtils.isEmpty(queryVo.getBuyerPhone())){
+	 		Page<OrderMaster> pageAllData = orderService.findAll(request);
+        	if (pageAllData != null) {
+                result.put("total", pageAllData.getTotalElements());
+                result.put("rows", pageAllData.getContent());
+            }
+        	return result;
+	 	}	
+	 	if(!StringUtils.isEmpty(queryVo.getBuyerName()) && StringUtils.isEmpty(queryVo.getBuyerPhone())){
+	 		Page<OrderMaster> pageAllData = orderService.findByBuyerName(queryVo.getBuyerName(), request);
+        	if (pageAllData != null) {
+                result.put("total", pageAllData.getTotalElements());
+                result.put("rows", pageAllData.getContent());
+            }
+        	return result;
+	 	}
+	 	if(StringUtils.isEmpty(queryVo.getBuyerName()) && !StringUtils.isEmpty(queryVo.getBuyerPhone())){
+	 		Page<OrderMaster> pageAllData = orderService.findByBuyerPhone(queryVo.getBuyerPhone(), request);
+        	if (pageAllData != null) {
+                result.put("total", pageAllData.getTotalElements());
+                result.put("rows", pageAllData.getContent());
+            }
+        	return result;
+	 	}
+	 	if(!StringUtils.isEmpty(queryVo.getBuyerName()) && !StringUtils.isEmpty(queryVo.getBuyerPhone())){
+	 		Page<OrderMaster> pageAllData = orderService.findByBuyerNameAndPhone(queryVo.getBuyerName(), queryVo.getBuyerPhone(), request);
+        	if (pageAllData != null) {
+                result.put("total", pageAllData.getTotalElements());
+                result.put("rows", pageAllData.getContent());
+            }
+        	return result;
+	 	}
+		return result;
+         
     }
 
     /**

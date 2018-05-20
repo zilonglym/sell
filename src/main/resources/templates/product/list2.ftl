@@ -2,7 +2,9 @@
 <html>
 <#include "../common/header.ftl">
 
-
+<style> 
+.aaa1{ float:left} 
+</style>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
 	<div id="wrapper" class="toggled" >
 	
@@ -35,7 +37,11 @@
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="categoryType">类目</label>
-			                        <input type="text" name="categoryType" class="form-control" id="txt_categoryType" placeholder="类目">
+			                        <select style="width:200px;height: 34px" name="categoryType" class="form-control" id="txt_categoryType" placeholder="类目">
+			                        	<option value="">---请选择---</option>
+											{foreach $reward as $value}
+										<option value="{$value['material_id']}">{$value['material_name']}</option>
+									{/foreach}</select>
 			                    </div>
 			                    <input hidden type="text" name="productId" id="txt_productId" value="">	
 				                <div class="form-group">
@@ -71,9 +77,20 @@
 	        </div>
     	</div>
 		<div id="page-content-wrapper2" >
-			<p >&nbsp;&nbsp;&nbsp;商品名(模糊搜索):<br>
-	        <input style="width:250px;" name="productName" id="productName" class="input-sm form-control"></p>
-	
+			<div class="aaa1">
+				<p >&nbsp;&nbsp;&nbsp;商品名(模糊搜索):<br>
+		        <input style="width:250px;" name="productName" id="productName" class="input-sm form-control"></p>
+			</div>
+			<div class="aaa1"> <p >&nbsp;&nbsp;&nbsp;</p></div>
+			<div class="aaa1">
+				<p>&nbsp;&nbsp;&nbsp;商品子类:<br>
+	        	<select style="width:250px;height: 30px" id="categoryName" name="categoryName" class="input-sm form-control" >
+		            <option value="">---请选择---</option>
+					{foreach $reward as $value}
+					<option value="{$value['material_id']}">{$value['material_name']}</option>
+					{/foreach}
+		        </select></p>
+	        </div>
 			<div class="btn-group hidden-xs" id="toolbar" role="group">
 				<div class="container">
 					<div class="row clearfix">
@@ -91,7 +108,7 @@
 					</div>
 				</div>
 		    </div>
-		    <div style="height: 700px;overlow: auto;" class="table-responsive">
+		    <div style="height: 500px;overlow: auto;" class="table-responsive">
 		    	<table class="table table-bordered table-condensed" id="table" data-mobile-responsive="true"></table>
 		    	<thread></thread>
 		    	<tbody></tbody>
@@ -101,6 +118,8 @@
 	
 	<script type="text/javascript">
 	    (function () {
+	    	
+	    	var categoryPublicCache = null;
 	         //初始化事件
 	        function initEvent() {
 	            //1.查询按钮事件
@@ -113,6 +132,7 @@
 	            //2.重置按钮事件
 	            $('#clear').click(function () {
 	                document.getElementById("productName").value="";
+	                document.getElementById("categoryName").value="";
 	            });
 	        }; 
 	
@@ -122,6 +142,7 @@
 	                limit: params.limit,    //页面大小
 	                offset: params.offset,   //页码
 	                productName: $('#productName').val(),
+	                categoryId: $('#categoryName').val(),
 	            };
 	            return temp;
 	        };
@@ -365,8 +386,7 @@
 	                    pageNumber: 1
 	                });
 	            }, s);
-/* 	            $("#categoryName").empty().append('<option value="3">所有类别</option>'); 
- */	        }; 
+ 	        }; 
 	        
 	      	//修改——转换日期格式(时间戳转换为datetime格式)  
 	        function changeDateFormat(cellval) {  
@@ -385,7 +405,13 @@
 	      		$("#txt_productPrice").val(productPrice);
 	      		$("#txt_productStock").val(productStock);
 	      		$("#txt_productDescription").val(productDescription);
-	      		$("#txt_categoryType").val(categoryType);
+	      		
+	      		console.log(categoryPublicCache);
+	      		for(var i=0;i<categoryPublicCache.length;i++){
+	      			if(categoryType==categoryPublicCache[i].categoryMegreName){
+	      				$("#txt_categoryType").val(categoryPublicCache[i].categoryId);
+	      			}
+				}
 	      		$("#txt_productStatus").val(productStatus);
 	      		$("#txt_productIcon").val(productIcon);
 	      		var obj=document.getElementById("showpic"); 
@@ -508,37 +534,41 @@
 	            return false;    
 			} 
 	      	
-	        /* $('#categoryName').change(function() {refreshCategoryName();}); */   //下拉框的点击改变事件，但是会使得选择一次就刷新掉所选择的
+	        /* $('#categoryName').change(function() {refreshCategoryName();}); */    //下拉框的点击改变事件，但是会使得选择一次就刷新掉所选择的
 	        function refreshCategoryName(){
 				$.ajax({ 
 					type:"get", 
-					url:"/sell/seller/category/getall", 
+					url:"/sell/seller/category/getallSubCategory", 
 					data: {}, 
 					dataType: "json",
 					success:function(select){
 				  		//console.log(select);
 			    		var categoryName_id = $("#categoryName"); 
+			    		var categoryName_modify_id = $("#txt_categoryType"); 
 			    		if (select) {
-			    			//console.log(select.data[0]);
-			    			var arrayCategory = select.data[0].category;
+			    			var arrayCategory = select.data;
+			    			categoryPublicCache = select.data;
 							$("option",categoryName_id).remove();
+							$("option",categoryName_modify_id).remove();
 							//console.log(arrayCategory);
 							//console.log(arrayCategory.length);
 	 						var temp = "<option value=''>未选择</option>";
 							categoryName_id.append(temp);  
+							categoryName_modify_id.append(temp);
 							for(var i=0;i<arrayCategory.length;i++){
-								var option = "<option value='"+arrayCategory[i]+"'>"+arrayCategory[i]+"</option>";
+								var option = "<option value='"+arrayCategory[i].categoryId+"'>"+arrayCategory[i].categoryMegreName+"</option>";
 								//console.log(option);
 								categoryName_id.append(option); 
+								categoryName_modify_id.append(option); 
 							}
-			    		} 
+			    		}
 					} 
 				});
 	        } 
 	
 	        $(function () {
-/* 	        	refreshCategoryName();
- */	            initTable();
+ 	        	refreshCategoryName();
+ 	            initTable();
 	            initEvent();
 	        });
 	        

@@ -67,6 +67,7 @@ public interface OrderService {
 
 	Long countOrderDetailByCategoryNameAndCreateTime(SalesQueryVo queryVo);
 	
+	Page<OrderMaster> findAll(Pageable pageable);
 	/** 姓名模糊查询 */
 	Page<OrderMaster> findByBuyerName(String buyerName, Pageable pageable);
 	/** 手机号模糊查询 */

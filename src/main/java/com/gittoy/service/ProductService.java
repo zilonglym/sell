@@ -45,4 +45,8 @@ public interface ProductService {
     void delete(String productId);
     
     List<ProductInfo> findByCategoryType(Integer categoryType);
+    
+    Page<ProductInfo> findByCategoryId(Pageable pageable, Integer categoryType);
+    
+    Page<ProductInfo> findByCategoryIdAndName(Pageable pageable, Integer categoryType, String productName);
 }

@@ -1,16 +1,25 @@
 <html>
     <#include "../common/header.ftl">
-
+<style> 
+.aaa1{ float:left} 
+</style>
     <body>
         <div id="wrapper" class="toggled">
             <#--边栏sidebar-->
             <#include "../common/nav.ftl">
 
             <#--主要内容content-->
-            <div id="page-content-wrapper">
-            <p >&nbsp;&nbsp;&nbsp;商品名(模糊搜索):<br>
-	        <input style="width:250px;" name="productName" id="productName" class="input-sm form-control"></p>
-	
+            <div id="page-content-wrapper2">
+            <div  class="aaa1">
+	            <p >&nbsp;&nbsp;&nbsp;姓名(模糊搜索):<br>
+		        <input style="width:250px;" name="buyerName" id="buyerName" class="input-sm form-control"></p>
+            </div >
+            <div class="aaa1"> <p >&nbsp;&nbsp;&nbsp;</p></div>
+            <div class="aaa1">
+	            <p >&nbsp;&nbsp;&nbsp;电话(模糊搜索):<br>
+		        <input style="width:250px;" name="buyerPhone" id="buyerPhone" class="input-sm form-control"></p>
+            </div>
+	        
 			<div class="btn-group hidden-xs" id="toolbar" role="group">
 				<div class="container">
 					<div class="row clearfix">
@@ -18,93 +27,20 @@
 							 <button id="query" type="button" class="btn btn-sm btn-primary">搜索</button>
 							 <span width:60px;></span>
 							 <button id="clear" type="button" class="btn btn-sm btn-primary">重置</button>
-							 <span width:60px;></span>
-							 <button id="up" type="button" class="btn btn-sm btn-primary">批量上架</button>
-							 <span width:60px;></span>
-							 <button id="down" type="button" class="btn btn-sm btn-primary">批量下架</button>		
-							 <span width:60px;></span>
-							 <button id="delete" type="button" class="btn btn-sm btn-primary">批量删除</button>							 							 					 
 						</div>
 					</div>
 				</div>
 		    </div>
-		    <div style="height: 700px;overlow: auto;" class="table-responsive">
+		    <div style="height: 500px;overlow: auto;" class="table-responsive">
 		    	<table class="table table-bordered table-condensed" id="table" data-mobile-responsive="true"></table>
 		    	<thread></thread>
 		    	<tbody></tbody>
 		    </div>
 		</div>
 		
-                <%-- <div class="container-fluid">
-                    <div class="row clearfix">
-                        <div class="col-md-12 column">
-                            <table class="table table-bordered table-condensed">
-                                <thead>
-                                <tr>
-                                    <th>订单id</th>
-                                    <th>姓名</th>
-                                    <th>手机号</th>
-                                    <th>地址</th>
-                                    <th>金额</th>
-                                    <th>快递费</th>
-                                    <th>买家留言</th>
-                                    <th>订单状态</th>
-                                    <th>支付状态</th>
-                                    <th>创建时间</th>
-                                    <th colspan="2" style="text-align:center;">操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <#list orderDTOPage.content as orderDTO>
-                                <tr>
-                                    <td>${orderDTO.orderId}</td>
-                                    <td>${orderDTO.buyerName}</td>
-                                    <td>${orderDTO.buyerPhone}</td>
-                                    <td>${orderDTO.buyerAddress}</td>
-                                    <td>${orderDTO.orderAmount}</td>
-                                    <td>${orderDTO.orderDeliveryAmount}</td>
-                                    <td>${(orderDTO.buyerComment)!}</td>
-                                    <td>${orderDTO.getOrderStatusEnum().message}</td>
-                                    <td>${orderDTO.getPayStatusEnum().message}</td>
-                                    <td>${orderDTO.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-                                    <td><a href="/sell/seller/order/detail?orderId=${orderDTO.orderId}">详情</a></td>
-                                    <td>
-                                        <#if orderDTO.getOrderStatusEnum().message == "新订单">
-                                            <a>未完结</a>
-                                        </#if>
-                                    </td>
-                                </tr>
-                                </#list>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- 分页 -->
-                        <div class="col-md-12 column">
-                            <ul class="pagination pull-right">
-                            <#if currentPage lte 1>
-                                <li class="disabled"><a href="#">上一页</a></li>
-                            <#else>
-                                <li><a href="/sell/seller/order/list?page=${currentPage - 1}&size=${size}">上一页</a></li>
-                            </#if>
-                            <#list 1..orderDTOPage.getTotalPages() as index>
-                                <#if currentPage == index>
-                                    <li class="disabled"><a href="#">${index}</a></li>
-                                <#else>
-                                    <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
-                                </#if>
-                            </#list>
-                            <#if currentPage gte orderDTOPage.getTotalPages()>
-                                <li class="disabled"><a href="#">下一页</a></li>
-                            <#else>
-                                <li><a href="/sell/seller/order/list?page=${currentPage + 1}&size=${size}">下一页</a></li>
-                            </#if>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div> --%>
             </div>
+            
+            
         </div>
 
         <#-- 弹窗 -->
@@ -133,7 +69,6 @@
             <source src="/sell/mp3/song.mp3" type="audio/mpeg" />
         </audio>
 
-        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script>
             var websocket = null;
@@ -167,6 +102,176 @@
                 websocket.close();
             }
         </script>
+        
+        <script type="text/javascript">
+	    (function () {
+	         //初始化事件
+	        function initEvent() {
+	            //1.查询按钮事件
+	            $('#query').click(function () {
+	                $('#table').bootstrapTable('refresh', {
+	                    pageNumber: 1
+	                });
+	            })
+	
+	            //2.重置按钮事件
+	            $('#clear').click(function () {
+	                document.getElementById("buyerName").value="";
+	                document.getElementById("buyerPhone").value="";
+	            });
+	        }; 
+	
+	        //得到查询的参数
+	        function queryParams(params) {
+	            var temp = {
+	                limit: params.limit,    //页面大小
+	                offset: params.offset,   //页码
+	                buyerName: $('#buyerName').val(),
+	                buyerPhone: $('#buyerPhone').val(),
+	            };
+	            return temp;
+	        };
+	        
+	        function initTable() {
+	            $('#table').bootstrapTable({
+	                url: '${request.contextPath}/seller/order/getlist',    //请求后台的URL（*）
+	                method: 'post',                     //请求方式（*）
+	                contentType: "application/json",
+	                toolbarAlign: 'right',               //工具栏对齐方式
+	                buttonsAlign: 'right',               //按钮对齐方式
+	                striped: true,                      //是否显示行间隔色
+	                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+	                pagination: true,                   //是否显示分页（*）
+	                sortable: true,                    //是否启用排序
+	                sortOrder: "asc",                   //排序方式
+	                sortName: "productName",                    // 排序字段
+	                queryParams: queryParams,//传递参数（*）
+	                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	                pageNumber: 1,                       //初始化加载第一页，默认第一页
+	                pageSize: 10,                       //每页的记录行数（*）
+	                pageList: [15, 25, 50, 100],        //可供选择的每页的行数（*）
+	                strictSearch: true,
+	                clickToSelect: true,                //是否启用点击选中行
+	                /* height: 400, */                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+	                uniqueId: "productName",                     //每一行的唯一标识，一般为主键列
+	                cardView: false,                    //是否显示详细视图
+	                detailView: false,                  //是否显示父子表
+	                showRefresh: false,                   //刷新按钮
+	                showExport: false,                     //是否显示导出
+	                columns: [{
+	                    field: 'orderId',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '订单id' 
+	                },{
+	                    field: 'buyerName',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '姓名'
+	                },  {
+	                    field: 'buyerPhone',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '手机号'
+	                },{
+	                    field: 'buyerAddress',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '地址'
+	                }, {
+	                    field: 'orderAmount',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '金额'
+	                },{
+	                    field: 'orderDeliveryAmount',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '快递费'
+	                },{
+	                    field: 'buyerComment',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '买家留言'
+	                },{
+	                    field: 'orderStatus',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '订单状态',
+	                    formatter: function (value, row, index) {  
+	                        if(row.orderStatus==0){
+	                        	return '未完结';
+	                        }else{
+	                        	return '已完结';
+	                        }
+	                    }
+	                },{
+	                    field: 'payStatus',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '支付状态',
+	                    formatter: function (value, row, index) {  
+	                        if(row.payStatus==0){
+	                        	return '未支付';
+	                        }else{
+	                        	return '已支付';
+	                        }
+	                    }
+	                },{
+	                    field: 'createTime',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '创建时间',
+	                  	//——修改——获取日期列的值进行转换  
+	                    formatter: function (value, row, index) {  
+	                        return changeDateFormat(value)  
+	                    } 
+	                },{
+	                	title: '详情',
+	                	formatter:function(value,row,index){
+		   					 var s;
+		   					 s = '<a href="/sell/seller/order/detail?orderId='+row.orderId+'">详情</a>';
+		   	            	 return s;
+		   				 }
+	                }]
+	            });
+	        }
+	
+	        // 页面刷新
+	        var pageReload = function (millisec) {
+	            var s = 1000;
+	            if (!millisec) {
+	                s = millisec;
+	            }
+	            setTimeout(function () {
+	                $('#table').bootstrapTable('refresh', {
+	                    pageNumber: 1
+	                });
+	            }, s);
+/* 	            $("#categoryName").empty().append('<option value="3">所有类别</option>'); 
+ */	        }; 
+	        
+	      	//修改——转换日期格式(时间戳转换为datetime格式)  
+	        function changeDateFormat(cellval) {  
+	            if (cellval != null) {  
+	                var date = new Date(parseInt(cellval.toString().replace("/Date(", "").replace(")/", ""), 10));  
+	                var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;  
+	                var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+	                var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+	                var Minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+	                var Second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+	                return date.getFullYear() + "-" + month + "-" + currentDate +"   "+  hour + ":" + Minute + ":" + Second;
+	            }  
+	        } 
+	      	
+	        $(function () {
+/* 	        	refreshCategoryName();
+ */	            initTable();
+	            initEvent();
+	        });
+	        
+	    })();
+	</script>
 
     </body>
 </html>

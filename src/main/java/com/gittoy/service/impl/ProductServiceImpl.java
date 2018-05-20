@@ -120,4 +120,14 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductInfo> findByCategoryType(Integer categoryType) {
 		return repository.findByCategoryType(categoryType);
 	}
+
+	@Override
+	public Page<ProductInfo> findByCategoryId(Pageable pageable, Integer categoryId) {
+		return repository.findByCategoryType(pageable, categoryId);
+	}
+
+	@Override
+	public Page<ProductInfo> findByCategoryIdAndName(Pageable pageable, Integer categoryId, String productName) {
+		return repository.findByCategoryTypeAndProductNameContaining(pageable, categoryId, productName);
+	}
 }

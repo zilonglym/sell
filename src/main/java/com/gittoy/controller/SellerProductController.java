@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gittoy.converter.ProductInfo2ProductInfoModify;
 import com.gittoy.dataobject.OrderDetail;
 import com.gittoy.dataobject.ProductCategory;
 import com.gittoy.dataobject.ProductInfo;
@@ -103,7 +104,7 @@ public class SellerProductController {
      */
     @ResponseBody
     @RequestMapping(value = "getlist", method = RequestMethod.POST)
-    public Map<String, Object> getList2(@RequestBody ProductQueryVo queryVo){
+    public Map<String, Object> getList(@RequestBody ProductQueryVo queryVo){
 		Map<String, Object> result = new HashMap<>();
 		result.put("total", 0);
 		result.put("rows", new ArrayList());
@@ -113,19 +114,37 @@ public class SellerProductController {
 		    return result;
 		}
      	PageRequest request = new PageRequest(queryVo.getPageNumber() - 1, queryVo.getLimit());
-         
+     	ProductInfo2ProductInfoModify p = new ProductInfo2ProductInfoModify();
+     	
+     	List<ProductCategory> productCategoryList = categoryService.findAll();
+     	
      	//返回所有符合的商品
-        if(!StringUtils.isEmpty(queryVo.getProductName())){
+        if(!StringUtils.isEmpty(queryVo.getProductName()) && StringUtils.isEmpty(queryVo.getCategoryId())){
         	Page<ProductInfo> pageAllData = productService.findByProductName(request, queryVo.getProductName());
          	if (pageAllData != null) {
                  result.put("total", pageAllData.getTotalElements());
-                 result.put("rows", pageAllData.getContent());
+                 result.put("rows", p.convert(pageAllData.getContent(),productCategoryList));
              }
-         }else{
+         }
+        if(StringUtils.isEmpty(queryVo.getProductName()) && !StringUtils.isEmpty(queryVo.getCategoryId())){
+        	Page<ProductInfo> pageAllData = productService.findByCategoryId(request, Integer.valueOf(queryVo.getCategoryId()));
+         	if (pageAllData != null) {
+                 result.put("total", pageAllData.getTotalElements());
+                 result.put("rows", p.convert(pageAllData.getContent(),productCategoryList));
+             }
+        }
+        if(!StringUtils.isEmpty(queryVo.getProductName()) && !StringUtils.isEmpty(queryVo.getCategoryId())){
+        	Page<ProductInfo> pageAllData = productService.findByCategoryIdAndName(request, Integer.valueOf(queryVo.getCategoryId()), queryVo.getProductName());
+         	if (pageAllData != null) {
+                 result.put("total", pageAllData.getTotalElements());
+                 result.put("rows", p.convert(pageAllData.getContent(),productCategoryList));
+             }
+        }
+        if(StringUtils.isEmpty(queryVo.getProductName()) && StringUtils.isEmpty(queryVo.getCategoryId())){
         	 Page<ProductInfo> pageAllData = productService.findAll(request);
           	if (pageAllData != null) {
                   result.put("total", pageAllData.getTotalElements());
-                  result.put("rows", pageAllData.getContent());
+                  result.put("rows", p.convert(pageAllData.getContent(),productCategoryList));
               }
          }
 		return result;

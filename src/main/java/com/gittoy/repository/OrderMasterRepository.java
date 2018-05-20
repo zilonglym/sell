@@ -17,5 +17,5 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
     
     Page<OrderMaster> findByBuyerPhoneContaining(String buyerPhone, Pageable pageable);
     
-    Page<OrderMaster> findByBuyerNameContainingAndPhoneContaining(String buyerName, String buyerPhone, Pageable pageable);
+    Page<OrderMaster> findByBuyerNameContainingAndBuyerPhoneContaining(String buyerName, String buyerPhone, Pageable pageable);
 }

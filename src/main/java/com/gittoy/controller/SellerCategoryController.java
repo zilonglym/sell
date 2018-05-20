@@ -8,6 +8,8 @@ import com.gittoy.service.ProductService;
 import com.gittoy.utils.ResultVOUtil;
 import com.gittoy.vo.CategoryList;
 import com.gittoy.vo.ResultVO;
+import com.gittoy.vo.SubCategoryMap;
+import com.gittoy.vo.SubCategoryVO;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -149,6 +152,21 @@ public class SellerCategoryController {
         CategoryList a = new CategoryList();
         a.setCategory(CategoryTypeList);
         result.add(a);
+        return ResultVOUtil.success(result);
+    }
+    
+    @SuppressWarnings("rawtypes")
+	@GetMapping("/getallSubCategory")
+    public ResultVO getallSubCategory() {
+        // 查询所有的类目
+        List<ProductCategory> categoryList = categoryService.findAll();
+        List<SubCategoryMap> result = new ArrayList<>();
+        for(ProductCategory pc: categoryList){
+        	SubCategoryMap subCategoryMap = new SubCategoryMap();
+        	subCategoryMap.setCategoryId(pc.getCategoryId().toString());
+        	subCategoryMap.setCategoryMegreName(pc.getCategoryName()+"-"+pc.getCategorySubName());
+        	result.add(subCategoryMap);
+        }
         return ResultVOUtil.success(result);
     }
 }

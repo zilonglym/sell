@@ -373,6 +373,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Page<OrderMaster> findByBuyerNameAndPhone(String buyerName, String buyerPhone, Pageable pageable) {
-		return orderMasterRepository.findByBuyerNameContainingAndPhoneContaining(buyerName, buyerPhone, pageable);
+		return orderMasterRepository.findByBuyerNameContainingAndBuyerPhoneContaining(buyerName, buyerPhone, pageable);
+	}
+
+	@Override
+	public Page<OrderMaster> findAll(Pageable pageable) {
+		return orderMasterRepository.findAll(pageable);
 	}
 }
