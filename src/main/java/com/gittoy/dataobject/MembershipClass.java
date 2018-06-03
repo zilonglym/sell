@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
@@ -19,23 +20,22 @@ import lombok.Data;
 @Entity
 @Data
 @DynamicUpdate
-@IdClass(value=MembershipClass.class)  
 public class MembershipClass implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	/** 卖家Id */
-	@Id
-	private String sellId;
-	
 	/** 积分区间*/
 	@Id
-	private String scoreClass;
+	@GeneratedValue
+	private Integer scoreClass;
 	
 	/** 区间积分下限 */
 	private BigDecimal scoreMin;
 	
 	/** 区间积分上限 */
 	private BigDecimal scoreMax;
+	
+	/** 分级描述 */
+	private String scoreDesc;
 	
     /** 创建时间 */
     private Date createTime;

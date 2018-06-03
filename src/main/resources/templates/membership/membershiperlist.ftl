@@ -32,7 +32,13 @@
                                     <td>${membershipInfo.openid}</td>
                                     <td>${membershipInfo.purchaseAmount}</td>
                                     <td>${membershipInfo.score}</td>
-                                    <td>${membershipInfo.getMembershipClassEnum().message}</td>
+                                    <td>
+                                    	<#list membershipClassList as membershipClass>
+                            	 	<#if (membershipInfo.scoreGrade)?? && membershipInfo.scoreGrade == membershipClass.scoreClass>
+                                    	${membershipClass.scoreDesc}
+                                    </#if>
+                                </#list>
+                                    </td>
                                     <td>${membershipInfo.createTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                     <td>${membershipInfo.updateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
                                 </tr>

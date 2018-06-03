@@ -42,7 +42,7 @@
             
             
         </div>
-
+        
         <#-- 弹窗 -->
         <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -159,11 +159,6 @@
 	                showRefresh: false,                   //刷新按钮
 	                showExport: false,                     //是否显示导出
 	                columns: [{
-	                    field: 'orderId',
-	                    sortable: true,
-	                    sortOrder: "asc",
-	                    title: '订单id' 
-	                },{
 	                    field: 'buyerName',
 	                    sortable: true,
 	                    sortOrder: "asc",
@@ -197,7 +192,7 @@
 	                    field: 'orderStatus',
 	                    sortable: true,
 	                    sortOrder: "asc",
-	                    title: '订单状态',
+	                    title: '状态',
 	                    formatter: function (value, row, index) {  
 	                        if(row.orderStatus==0){
 	                        	return '未完结';
@@ -209,7 +204,7 @@
 	                    field: 'payStatus',
 	                    sortable: true,
 	                    sortOrder: "asc",
-	                    title: '支付状态',
+	                    title: '支付',
 	                    formatter: function (value, row, index) {  
 	                        if(row.payStatus==0){
 	                        	return '未支付';
@@ -233,9 +228,49 @@
 		   					 s = '<a href="/sell/seller/order/detail?orderId='+row.orderId+'">详情</a>';
 		   	            	 return s;
 		   				 }
+	                },{
+	                    field: 'gifts',
+	                    sortable: true,
+	                    sortOrder: "asc",
+	                    title: '会员升级',
+	                    formatter: function (value, row, index) {  
+	                        if(row.upGrade){
+	                        	//return row.gifts;
+	                        	var s;
+	                        	if(row.sendGifts){
+	                        		s = '<button type="button" class="btn btn-info" data-toggle="modal" disabled="disabled">已赠礼品</button>';
+	                        	}else{
+	                        		s = '<button type="button" class="btn btn-info" data-toggle="modal" onclick="getEditInfo(\''+row.orderId+'\');" >赠送礼品</button>';	
+	                        	}
+			   	            	 return s;
+	                        }else{
+			   	            	 return '';
+	                        }
+	                    }
 	                }]
 	            });
 	        }
+	        
+	      //html页面调用js文件里的函数，写法必须为dosave = function (){}形式，其他方式写，html页面会搜索不到该函数
+	      	getEditInfo = function(orderId){
+	      		var msg = "是否已赠送礼品？";  
+	            if (confirm(msg) == true) {  
+	                $.ajax({  
+	                    url: "${request.contextPath}/seller/order/sendGifts",  
+	                    type: "post",  
+	                    data: {  
+	                    	orderId: orderId  
+	                    },  
+	                    success: function (data) { 
+	                    	console.log(data);
+	                        alert(data.data);  
+	                        //重新加载记录  
+	                        //重新加载数据  
+	                        $("#table").bootstrapTable('refresh');  
+	                    }  
+	                });  
+	            }
+	      	};
 	
 	        // 页面刷新
 	        var pageReload = function (millisec) {
@@ -260,7 +295,7 @@
 	                var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
 	                var Minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
 	                var Second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-	                return date.getFullYear() + "-" + month + "-" + currentDate +"   "+  hour + ":" + Minute + ":" + Second;
+	                return month + "-" + currentDate +"   "+  hour + ":" + Minute;
 	            }  
 	        } 
 	      	

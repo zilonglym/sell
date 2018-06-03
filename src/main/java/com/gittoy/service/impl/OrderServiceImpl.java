@@ -380,4 +380,11 @@ public class OrderServiceImpl implements OrderService {
 	public Page<OrderMaster> findAll(Pageable pageable) {
 		return orderMasterRepository.findAll(pageable);
 	}
+
+	@Override
+	public void sendGifts(String orderId) {
+		OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
+		orderMaster.setSendGifts(true);
+		orderMasterRepository.save(orderMaster);
+	}
 }

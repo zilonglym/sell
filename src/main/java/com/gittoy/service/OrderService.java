@@ -29,6 +29,9 @@ public interface OrderService {
 
     /** 取消订单 */
     OrderDTO cancel(OrderDTO orderDTO);
+    
+    /** 取消订单 */
+    void sendGifts(String orderDTO);
 
     /** 完结订单 */
     OrderDTO finish(OrderDTO orderDTO);

@@ -1,7 +1,5 @@
 package com.gittoy.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,20 +20,25 @@ public class MembershipClassServiceImpl implements MembershipClassService {
 	@Autowired
 	private MembershipClassRepository membershipClassRepository;
 	
-	@Override
-	public List<MembershipClass> findAll(String sellId) {
-		return membershipClassRepository.findBySellIdIn(sellId);
-	}
 
 	@Override
-	public Page<MembershipClass> findList(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<MembershipClass> findAll(Pageable pageable) {
+		return membershipClassRepository.findAll(pageable);
 	}
 
 	@Override
 	public MembershipClass save(MembershipClass membershipClass) {
 		return membershipClassRepository.save(membershipClass);
+	}
+	
+	@Override
+	public void delete(Integer scoreClass) {
+		membershipClassRepository.delete(scoreClass);
+	}
+
+	@Override
+	public MembershipClass findByScoreClass(Integer scoreClass) {
+		return membershipClassRepository.findByScoreClass(scoreClass);
 	}
 
 }

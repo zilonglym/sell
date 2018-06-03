@@ -1,13 +1,14 @@
 <head>
     <meta charset="utf-8">
     <title>卖家后端管理系统</title>
+    <script type="text/javascript" src="${request.contextPath}/js/jquery.min.js?v=2.1.4"></script>
     <link href="${request.contextPath}/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/sell/css/style.css">
     <link href="${request.contextPath}/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="${request.contextPath}/css/plugins/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
     
     <script type="text/javascript" src="${request.contextPath}/lodop/LodopFuncs.js"></script>
-    <script type="text/javascript" src="${request.contextPath}/js/jquery.min.js?v=2.1.4"></script>
+    
     
     <!-- Bootstrap table -->
 	<script src="${request.contextPath}/js/bootstrap.min.js?v=3.3.6" type="text/javascript"></script>

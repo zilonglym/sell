@@ -1,7 +1,5 @@
 package com.gittoy.service;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,10 +10,13 @@ import com.gittoy.dataobject.MembershipClass;
  * Create By lzhao 2018/04/07
  */
 public interface MembershipClassService {
-    List<MembershipClass> findAll(String sellId);
+	
+	MembershipClass findByScoreClass(Integer scoreClass);
     
-    Page<MembershipClass> findList(Pageable pageable);
+    Page<MembershipClass> findAll(Pageable pageable);
     
     MembershipClass save(MembershipClass membershipClass);
-    
+
+	void delete(Integer scoreClass);
+	
 }

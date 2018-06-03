@@ -22,6 +22,8 @@ public interface ProductService {
      * @return
      */
     List<ProductInfo> findUpAll();
+    
+    List<ProductInfo> findUpAllAndNameContaining(String productName);
 
     Page<ProductInfo> findAll(Pageable pageable);
     

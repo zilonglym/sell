@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,8 +33,10 @@ import com.gittoy.service.MembershipClassService;
 import com.gittoy.service.MembershipService;
 import com.gittoy.service.OrderService;
 import com.gittoy.utils.DateUtil;
+import com.gittoy.utils.ResultVOUtil;
 import com.gittoy.vo.OrderMasterQueryVo;
 import com.gittoy.vo.ProductQueryVo;
+import com.gittoy.vo.ResultVO;
 import com.gittoy.vo.SalesQueryVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -203,9 +206,8 @@ public class SellOrderController {
 
         try {
             OrderDTO orderDTO = orderService.findOne(orderId);
-            orderService.finish(orderDTO);
             
-            List<MembershipClass> membershipClassList = membershipClassService.findAll("zhihe");
+            List<MembershipClass> membershipClassList = membershipClassService.findAll(new PageRequest(1, 100)).getContent();
             int scoreGrade = 1;
             
             //查询是否已存在消费记录
@@ -224,6 +226,7 @@ public class SellOrderController {
                 membershipService.save(membershipinfo);
             }else{
             	//存在则需要更新原记录
+            	
             	BigDecimal toUpdate = orderDTO.getOrderAmount().add(findedMembershipInfo.getPurchaseAmount());
             	scoreGrade = getScoreGrade(membershipClassList, toUpdate);
             	
@@ -235,7 +238,13 @@ public class SellOrderController {
                 membershipinfo.setScore(findedMembershipInfo.getScore().add(orderDTO.getOrderAmount()));
                 membershipinfo.setScoreGrade(scoreGrade);
             	membershipService.save(membershipinfo);
+            	
+            	if(findedMembershipInfo.getScoreGrade()==scoreGrade){
+            		orderDTO.setUpGrade(true);
+            	}
             }
+            orderService.finish(orderDTO);
+            
         } catch (SellException e) {
             log.error("【卖家端完结订单】发生异常{}", e);
             map.put("msg", e.getMessage());
@@ -259,7 +268,7 @@ public class SellOrderController {
     	for(MembershipClass membershipClass : membershipClassList){
         	if(input.compareTo(membershipClass.getScoreMin())>=0
         		&& membershipClass.getScoreMax().compareTo(input)>0){
-        		scoreGrade = Integer.parseInt(membershipClass.getScoreClass());
+        		scoreGrade = membershipClass.getScoreClass();
         		break;
         	}
         }
@@ -364,5 +373,25 @@ public class SellOrderController {
         map.put("size", size);
         return new ModelAndView("/order/list2", map);*/
         
+    }
+    
+    
+    /**
+     * 赠送礼品
+     *
+     * @param orderId
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/sendGifts")
+    public ResultVO<?> sendGifts(@RequestParam("orderId") String orderId,
+                               Map<String, Object> map) {
+        try {
+            orderService.sendGifts(orderId);
+        } catch (SellException e) {
+            log.error("【记录赠送礼品】发生异常{}", e);
+            return ResultVOUtil.error(1,"操作失败");
+        }
+        return ResultVOUtil.success("操作成功");
     }
 }

@@ -49,6 +49,10 @@ public class OrderMaster {
 
     /** 支付状态, 默认0为未支付 */
     private Integer payStatus = PayStatusEnum.WAIT.getCode();
+    
+    private Boolean upGrade;
+    private Boolean sendGifts;
+    private String gifts;
 
     /** 创建时间 */
     private Date createTime;

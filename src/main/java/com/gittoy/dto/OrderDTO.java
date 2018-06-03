@@ -60,6 +60,10 @@ public class OrderDTO {
 
     /** 订单详情列表 */
     private List<OrderDetail> orderDetailList;
+    
+    private Boolean upGrade;
+    private Boolean sendGifts;
+    private String gifts;
 
     @JsonIgnore
     public OrderStatusEnum getOrderStatusEnum() {

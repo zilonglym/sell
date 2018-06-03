@@ -34,6 +34,11 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductInfo> findUpAll() {
         return repository.findByProductStatus(ProductStatusEnum.UP.getCode());
     }
+    
+	@Override
+	public List<ProductInfo> findUpAllAndNameContaining(String name) {
+		return repository.findByProductStatusAndProductNameContaining(ProductStatusEnum.UP.getCode(), name);
+	}
 
     @Override
     public Page<ProductInfo> findAll(Pageable pageable) {
@@ -130,4 +135,6 @@ public class ProductServiceImpl implements ProductService {
 	public Page<ProductInfo> findByCategoryIdAndName(Pageable pageable, Integer categoryId, String productName) {
 		return repository.findByCategoryTypeAndProductNameContaining(pageable, categoryId, productName);
 	}
+
+
 }
