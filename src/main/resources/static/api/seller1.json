@@ -1,0 +1,35 @@
+﻿{
+  "errno": 0,
+  "data": {
+    "name": "润予置禾超市",
+    "description": "连锁",
+    "deliveryTime": 40,
+    "score": 5.0,
+    "serviceScore": 5.0,
+    "foodScore": 5.0,
+    "rankRate": 100.0,
+    "minPrice": 0,
+    "deliveryPrice": 0,
+    "ratingCount": 3898,
+    "sellCount": 2000,
+    "bulletin": "现拥有100多家营运零售单位，业务范围遍及多个校区。集团以三种主要经营业态引领市场：大型超市，超市以及折扣店",
+    "supports": [
+      {
+        "type": 0,
+        "description": "25元起送"
+      },
+      {
+        "type": 1,
+        "description": "消费累计积分,起步为青铜会员,超过100积分为白银会员，超过300积分为黄金会员,超过500积分为白金会员,超过800积分为钻石会员。敬请关注后续推出的会员升级赠送优惠活动"
+      }
+    ],
+    "avatar": "http://111.230.47.102/images/SC.jpg",
+    "pics": [
+    ],
+    "infos": [
+      "品类:零售食品",
+      "营业时间:18:00-23:00",
+	  "配送费：1-2楼0.3,3-4楼0.5,5-6楼0.6元"
+    ]
+  }
+}  
