@@ -15,4 +15,10 @@ public interface SellerService {
      * @return
      */
     SellerInfo findSellerInfoByOpenid(String openid);
+    
+    SellerInfo findSellerInfoBySellerId(String sellerId);
+    
+    void save(SellerInfo sellerInfo);
+
+	SellerInfo findSellerInfoByUsername(String username);
 }

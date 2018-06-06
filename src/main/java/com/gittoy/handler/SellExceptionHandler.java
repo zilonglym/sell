@@ -1,6 +1,7 @@
 package com.gittoy.handler;
 
 import com.gittoy.config.ProjectUrlConfig;
+import com.gittoy.exception.ACSellerAuthorizeException;
 import com.gittoy.exception.ResponseBankException;
 import com.gittoy.exception.SellException;
 import com.gittoy.exception.SellerAuthorizeException;
@@ -34,6 +35,13 @@ public class SellExceptionHandler {
         .concat("?returnUrl=")
         .concat(projectUrlConfig.getSell())
         .concat("/sell/seller/login"));
+    }
+    
+    @ExceptionHandler(value = ACSellerAuthorizeException.class)
+    public ModelAndView handlerACAuthorizeException() {
+        return new ModelAndView("redirect:"
+        .concat(projectUrlConfig.getWechatOpenAuthorize())
+        .concat("/sell/wechat/aclogin"));
     }
 
     @ExceptionHandler(value = SellException.class)
