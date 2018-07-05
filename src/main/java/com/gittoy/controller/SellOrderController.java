@@ -239,7 +239,7 @@ public class SellOrderController {
                 membershipinfo.setScoreGrade(scoreGrade);
             	membershipService.save(membershipinfo);
             	
-            	if(findedMembershipInfo.getScoreGrade()==scoreGrade){
+            	if(findedMembershipInfo.getScoreGrade()!=scoreGrade){
             		orderDTO.setUpGrade(true);
             	}
             }

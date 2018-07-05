@@ -54,6 +54,8 @@ public class BuyerOrderController {
             throw new SellException(ResultEnum.CART_EMPTY);
         }
 
+        orderDTO.setSendGifts(false);
+        orderDTO.setUpGrade(false);
         OrderDTO createResult = orderService.create(orderDTO);
 
         Map<String, String> map = new HashMap<>();

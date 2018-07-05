@@ -228,7 +228,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         // 推送微信模板消息
-        pushMessageService.orderStatus(orderDTO);
+        //pushMessageService.orderStatus(orderDTO);
 
         return orderDTO;
     }
